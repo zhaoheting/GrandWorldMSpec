@@ -1,0 +1,35 @@
+build/publications
+src/main/java/**/*ApiController.java
+src/main/java/**/ApiResponseMessage.java
+src/main/java/**/ApiOriginFilter.java
+src/main/java/**/ApiException.java
+src/main/java/**/NotFoundException.java
+src/main/resources/**
+README.md
+pom.xml
+
+.gitignore
+
+#created during restemplate library generation
+docs/*.md
+.travis.yml
+build.sbt
+git_push.sh
+.swagger-codegen/VERSION
+src/main/AndroidManifest.xml
+src/test/**
+
+#do not overwrite gradlew
+gradle/wrapper/**
+gradlew*
+build.gradle
+settings.gradle
+gradle.properties
+
+src/main/java/**/controller/RFC3339DateFormat.java
+src/main/java/**/controller/Swagger2SpringBoot.java
+src/main/java/com/example/GrandWorldMSpec/swagger/HomeController.java
+src/main/java/com/example/GrandWorldMSpec/swagger/SwaggerDocumentationConfig.java
+
+src/main/java/com/example/GrandWorldMSpec/generated/controller/interfaces/RFC3339DateFormat.java
+src/main/java/com/example/GrandWorldMSpec/generated/controller/interfaces/Swagger2SpringBoot.java

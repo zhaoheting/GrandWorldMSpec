@@ -1,0 +1,46 @@
+swagger: '2.0'
+info:
+  description: the description of apiinfo.
+  version: 1.0.0
+  title: Learn how to use swagger.
+  contact:
+    name: openjaw team
+    email: heting.zhao@www.com
+host: 'localhost:8080'
+basePath: /
+tags:
+  - name: AncillariesManagement
+    description: The Ancillaries API
+paths:
+  /ancillaries/getAncillaries:
+    get:
+      tags:
+        - AncillariesManagement
+      summary: 一个附加产品api value
+      description: 一个附加产品api notes
+      operationId: getAncillaries
+      produces:
+        - '*/*'
+        - application/json
+      parameters:
+        - in: body
+          name: ancillarieName
+          description: ancillarieName
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          schema:
+            type: string
+        '201':
+          description: 获取附加产品列表成功
+          schema:
+            type: string
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: 获取附加产品列表失败
