@@ -26,10 +26,3 @@ build.gradle
 settings.gradle
 gradle.properties
 
-src/main/java/**/controller/RFC3339DateFormat.java
-src/main/java/**/controller/Swagger2SpringBoot.java
-src/main/java/com/example/GrandWorldMSpec/swagger/HomeController.java
-src/main/java/com/example/GrandWorldMSpec/swagger/SwaggerDocumentationConfig.java
-
-src/main/java/com/example/GrandWorldMSpec/generated/controller/interfaces/RFC3339DateFormat.java
-src/main/java/com/example/GrandWorldMSpec/generated/controller/interfaces/Swagger2SpringBoot.java
