@@ -6,7 +6,7 @@ info:
   contact:
     name: openjaw team
     email: heting.zhao@www.com
-host: 'localhost:8080'
+host: GrandWorldM
 basePath: /
 tags:
   - name: AncillariesManagement

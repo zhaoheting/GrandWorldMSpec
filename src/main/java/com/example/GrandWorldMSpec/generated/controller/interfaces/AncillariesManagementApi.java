@@ -27,9 +27,10 @@ import javax.validation.constraints.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-02-15T21:39:34.580+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-02-16T11:10:23.066+08:00")
 
-@Api(value = "AncillariesManagement", description = "the AncillariesManagement API")
+//此处若未自动生成tags，应该手动添加与方法名上同名的tag，否则画面多显示一个空tag分组
+@Api(value = "AncillariesManagement", description = "the AncillariesManagement API", tags = "AncillariesManagement")
 public interface AncillariesManagementApi {
 
     Logger log = LoggerFactory.getLogger(AncillariesManagementApi.class);
