@@ -73,17 +73,19 @@
                         <configuration>
                             <inputSpec>${project.basedir}/swagger.yaml</inputSpec>
                             <language>spring</language>
+                            <!--自动生成的代码路径"<output>/<configOptions>-<sourceFolder>/"+详细路径-->
                             <output>${project.basedir}</output>
+                            <!--RFC3339DateFormat.java与Swagger2SpringBoot.java的生成路径-->
                             <invokerPackage>${base-package}.generated.controller</invokerPackage>
-                            <!--指定swagger配置类中的basepackage中扫描的路径与api接口的生成路径-->
+                            <!--指定swagger配置类中的basepackage中扫描的路径与api接口的生成后存放路径-->
                             <apiPackage>${base-package}.generated.controller.interfaces</apiPackage>
                             <modelPackage>${base-package}.generated.model</modelPackage>
                             <configOptions>
                                 <sourceFolder>src/main/java</sourceFolder>
                                 <dateLibrary>java8-localdatetime</dateLibrary>
                                 <!--<hideGenerationTimestamp>true</hideGenerationTimestamp>-->
-                                <useTags>true</useTags>
-                                <configPackage>${base-package}.swagger</configPackage>
+                                <useTags>true</useTags><!--是否使用tags命名生成的接口名-->
+                                <configPackage>${base-package}.swagger</configPackage><!--配置文件生成路径-->
                             </configOptions>
                         </configuration>
                     </execution>
