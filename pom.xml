@@ -66,16 +66,19 @@
                 <version>${swagger-codegen-maven-plugin-version}</version>
                 <executions>
                     <execution>
+                        <!--execution的标识id-->
                         <id>generate-sources-server</id>
+                        <!-- 配置的执行目标 -->
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
+                            <!--描述文件的存放路径-->
                             <inputSpec>${project.basedir}/swagger.yaml</inputSpec>
                             <language>spring</language>
-                            <!--自动生成的代码路径"<output>/<configOptions>-<sourceFolder>/"+详细路径-->
+                            <!--自动生成的代码的路径由以下三个property共同决定，格式如下"<output>/<sourceFolder>/"+详细路径（即invokerPackage或apiPackage或modelPackage）-->
                             <output>${project.basedir}</output>
-                            <!--RFC3339DateFormat.java与Swagger2SpringBoot.java的生成路径-->
+                            <!--RFC3339DateFormat.java与Swagger2SpringBoot.java的生成路径，在使用codegen时不必修改这两个类，可以在文件.swagger-codegen-ignore中设置不生成，则此路径无用-->
                             <invokerPackage>${base-package}.generated.controller</invokerPackage>
                             <!--指定swagger配置类中的basepackage中扫描的路径与api接口的生成后存放路径-->
                             <apiPackage>${base-package}.generated.controller.interfaces</apiPackage>
