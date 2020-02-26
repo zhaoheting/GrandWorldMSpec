@@ -9,38 +9,82 @@ info:
 host: GrandWorldM
 basePath: /
 tags:
-  - name: AncillariesManagement
-    description: The Ancillaries API
+  - name: RuleManagement
+    description: Rule Store And Access
 paths:
-  /ancillaries/getAncillaries:
+  /ruleBundles:
+    post:
+      tags:
+        - RuleManagement
+      summary: Accept rule pushes request from console to store it.
+      description: Accept rule pushes request from console to store it.
+      operationId: pushRuleBundles
+      produces:
+        - application/json
+      consumes:
+        - multipart/form-data
+      parameters:
+        - name: types
+          in: path
+          description: rule types
+          required: true
+          type: string
+        - name: tenantId
+          in: path
+          description: tenant id
+          required: true
+          type: string
+        - name: version
+          in: path
+          description: rule version
+          required: true
+          type: string
+        - name: ruleZip
+          in: formData
+          description: rule bundles
+          required: true
+          type: file
+      responses:
+        '200':
+          description: successful operation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+  /rules:
     get:
       tags:
-        - AncillariesManagement
-      summary: 一个附加产品api value
-      description: 一个附加产品api notes
-      operationId: getAncillaries
+        - RuleManagement
+      summary: Load rules from SDK.
+      description: Load rules from SDK.
       produces:
-        - '*/*'
         - application/json
       parameters:
-        - in: body
-          name: ancillarieName
-          description: ancillarieName
-          required: false
-          schema:
-            type: string
+        - name: type
+          in: path
+          description: table/business/both.
+          required: true
+          type: string
+        - name: ruleSetName
+          in: path
+          description: if business rule.
+          required: true
+          type: string
+        - name: tableName
+          in: path
+          description: 'if table rule, [table set/table name]'
+          required: true
+          type: string
+        - name: tenantId
+          in: path
+          description: e.g. HU B2C
+          required: true
+          type: string
+        - name: version
+          in: path
+          description: e.g. v0.1.0
+          required: true
+          type: string
       responses:
         '200':
           description: OK
-          schema:
-            type: string
-        '201':
-          description: 获取附加产品列表成功
-          schema:
-            type: string
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
-        '404':
-          description: 获取附加产品列表失败
