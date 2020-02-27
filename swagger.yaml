@@ -9,13 +9,13 @@ info:
 host: GrandWorldM
 basePath: /
 tags:
-  - name: RuleManagement
+  - name: Rule Management
     description: Rule Store And Access
 paths:
   /ruleBundles:
     post:
       tags:
-        - RuleManagement
+        - Rule Management
       summary: Accept rule pushes request from console to store it.
       description: Accept rule pushes request from console to store it.
       operationId: pushRuleBundles
@@ -46,7 +46,12 @@ paths:
           type: file
       responses:
         '200':
-          description: successful operation
+          description: OK
+          schema:
+            properties:
+              uuid:
+                type: string
+                description: RuleBundle ID
         '400':
           description: Invalid ID supplied
         '404':
@@ -54,37 +59,16 @@ paths:
   /rules:
     get:
       tags:
-        - RuleManagement
+        - Rule Management
       summary: Load rules from SDK.
       description: Load rules from SDK.
       produces:
-        - application/json
-      parameters:
-        - name: type
-          in: path
-          description: table/business/both.
-          required: true
-          type: string
-        - name: ruleSetName
-          in: path
-          description: if business rule.
-          required: true
-          type: string
-        - name: tableName
-          in: path
-          description: 'if table rule, [table set/table name]'
-          required: true
-          type: string
-        - name: tenantId
-          in: path
-          description: e.g. HU B2C
-          required: true
-          type: string
-        - name: version
-          in: path
-          description: e.g. v0.1.0
-          required: true
-          type: string
+        - application/octet-stream
+      consumes:
+        - application/octet-stream
       responses:
         '200':
-          description: OK
+          description: Return a zip file.
+          schema:
+            type: file
+
