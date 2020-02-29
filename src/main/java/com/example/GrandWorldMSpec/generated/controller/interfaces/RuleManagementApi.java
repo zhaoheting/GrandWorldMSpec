@@ -29,7 +29,7 @@ import javax.validation.constraints.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-02-27T23:24:19.222+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-02-28T12:07:49.990+08:00")
 
 @Api(value = "RuleManagement", description = "the RuleManagement API")
 public interface RuleManagementApi {
@@ -74,18 +74,18 @@ public interface RuleManagementApi {
     }
 
 
-    @ApiOperation(value = "Load rules from SDK.", nickname = "rulesGet", notes = "Load rules from SDK.", response = Resource.class, tags={ "Rule Management", })
+    @ApiOperation(value = "Load rules from SDK.", nickname = "rulesGet", notes = "Load rules from SDK.", response = String.class, responseContainer = "List", tags={ "Rule Management", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Return a zip file.", response = Resource.class) })
+        @ApiResponse(code = 200, message = "Return a zip file.", response = String.class, responseContainer = "List") })
     @RequestMapping(value = "/rules",
         produces = { "application/octet-stream" }, 
         consumes = { "application/octet-stream" },
         method = RequestMethod.GET)
-    default ResponseEntity<Resource> rulesGet() {
+    default ResponseEntity<List<String>> rulesGet() {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("")) {
                 try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("", Resource.class), HttpStatus.NOT_IMPLEMENTED);
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("", List.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
                     log.error("Couldn't serialize response for content type ", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

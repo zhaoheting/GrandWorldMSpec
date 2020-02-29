@@ -70,5 +70,7 @@ paths:
         '200':
           description: Return a zip file.
           schema:
-            type: file
+            type: array
+            items:
+              type: string
 
