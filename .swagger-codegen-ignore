@@ -26,3 +26,5 @@ build.gradle
 settings.gradle
 gradle.properties
 
+src/main/java/com/example/GrandWorldMSpec/generated/controller/Swagger2SpringBoot.java
+

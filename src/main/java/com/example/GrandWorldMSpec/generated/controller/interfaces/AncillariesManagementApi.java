@@ -27,7 +27,7 @@ import javax.validation.constraints.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-02-16T14:27:15.413+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-02-29T12:07:13.464+08:00")
 
 @Api(value = "AncillariesManagement", description = "the AncillariesManagement API")
 public interface AncillariesManagementApi {
