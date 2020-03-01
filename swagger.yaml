@@ -6,41 +6,63 @@ info:
   contact:
     name: openjaw team
     email: heting.zhao@www.com
-host: GrandWorldM
+host: 'localhost:8080'
 basePath: /
+schemes:
+  - http
+  - https
 tags:
-  - name: AncillariesManagement
-    description: The Ancillaries API
+  - name: FileManagement
+    description: DownloadZip
 paths:
-  /ancillaries/getAncillaries:
+  /downloadZipInString:
     get:
       tags:
-        - AncillariesManagement
-      summary: 一个附加产品api value
-      description: 一个附加产品api notes
-      operationId: getAncillaries
-      produces:
-        - '*/*'
-        - application/json
-      parameters:
-        - in: body
-          name: ancillarieName
-          description: ancillarieName
-          required: false
-          schema:
-            type: string
+        - FileManagement
+      summary: Load rules from SDK.
+      description: Load rules from SDK.
       responses:
         '200':
-          description: OK
+          description: Return a zip file.
           schema:
             type: string
-        '201':
-          description: 获取附加产品列表成功
-          schema:
-            type: string
-        '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
+        '400':
+          description: Invalid ID supplied
         '404':
-          description: 获取附加产品列表失败
+          description: Pet not found
+  /downLoadZipInFile:
+    get:
+      tags:
+        - FileManagement
+      summary: Load rules from SDK.
+      description: Load rules from SDK.
+      produces:
+        - application/octet-stream
+      consumes:
+        - application/octet-stream
+      responses:
+        '200':
+          description: Return a zip file.
+          schema:
+            type: file
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: not found
+  /downLoadZipInBytes:
+    get:
+      tags:
+        - FileManagement
+      summary: Load rules from SDK.
+      description: Load rules from SDK.
+      responses:
+        '200':
+          description: Return a zip file.
+          schema:
+            type: array
+            items:
+              type: string
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: not found
