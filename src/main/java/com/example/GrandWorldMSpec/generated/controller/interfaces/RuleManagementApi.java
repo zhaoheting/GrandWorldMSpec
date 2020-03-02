@@ -29,9 +29,9 @@ import javax.validation.constraints.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-02T14:17:48.563+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-02T16:04:29.408+08:00")
 
-@Api(value = "RuleManagement", description = "the RuleManagement API", tags = "RuleManagement")
+@Api(value = "RuleManagement", description = "the RuleManagement API", tags = "Rule Management")
 public interface RuleManagementApi {
 
     Logger log = LoggerFactory.getLogger(RuleManagementApi.class);
@@ -48,18 +48,46 @@ public interface RuleManagementApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Load rules from SDK.", nickname = "downLoadZipInBytesGet", notes = "Return a zip file as a byte array in customised response entity,then the client can get the array.", response = RuleResponse.class, tags={ "RuleManagement", })
-    @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Return a zip file as a byte array in customised response entity successfully.", response = RuleResponse.class),
+    @ApiOperation(value = "Load rules from SDK.", nickname = "downLoadZipInFileGet", notes = "Return a zip file as a byte array in customised response entity,then the file can be downloaded from front end.", response = Resource.class, tags={ "Rule Management", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Return a zip file.", response = Resource.class),
         @ApiResponse(code = 400, message = "Invalid ID supplied"),
         @ApiResponse(code = 404, message = "not found") })
-    @RequestMapping(value = "/downLoadZipInBytes",
+    @RequestMapping(value = "/downLoadZipInFile",
+        produces = { "application/octet-stream" }, 
+        consumes = { "application/octet-stream" },
         method = RequestMethod.GET)
-    default ResponseEntity<RuleResponse> downLoadZipInBytesGet() {
+    default ResponseEntity<Resource> downLoadZipInFileGet() {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("", Resource.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type ", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default RuleManagementApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    @ApiOperation(value = "Accept rule pushes request from console to store it.", nickname = "pushRuleBundles", notes = "Accept rule pushes request from console to store it.", response = String.class, tags={ "Rule Management", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "RuleBundle ID", response = String.class),
+        @ApiResponse(code = 400, message = "Invalid ID supplied"),
+        @ApiResponse(code = 404, message = "Pet not found") })
+    @RequestMapping(value = "/ruleBundles",
+        produces = { "application/json" }, 
+        consumes = { "multipart/form-data" },
+        method = RequestMethod.POST)
+    default ResponseEntity<String> pushRuleBundles(@ApiParam(value = "rule types",required=true) @PathVariable("types") String types,@ApiParam(value = "tenant id",required=true) @PathVariable("tenantId") String tenantId,@ApiParam(value = "rule version",required=true) @PathVariable("version") String version,@ApiParam(value = "file detail") @Valid @RequestPart("file") MultipartFile ruleZip) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"ruleInBytes\" : \"ruleInBytes\"}", RuleResponse.class), HttpStatus.NOT_IMPLEMENTED);
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("\"\"", String.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -72,22 +100,20 @@ public interface RuleManagementApi {
     }
 
 
-    @ApiOperation(value = "Load rules from SDK.", nickname = "downLoadZipInFileGet", notes = "Return a zip file as a byte array in customised response entity,then the file can be downloaded from front end.", response = Resource.class, tags={ "RuleManagement", })
-    @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "Return a zip file.", response = Resource.class),
+    @ApiOperation(value = "Load rules from SDK.", nickname = "rulesGet", notes = "Return a zip file as a byte array in customised response entity,then the client can get the array.", response = RuleResponse.class, tags={ "Rule Management", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Return a zip file as a byte array in customised response entity successfully.", response = RuleResponse.class),
         @ApiResponse(code = 400, message = "Invalid ID supplied"),
         @ApiResponse(code = 404, message = "not found") })
-    @RequestMapping(value = "/downLoadZipInFile",
-        produces = { "application/octet-stream" },
-        consumes = { "application/octet-stream" },
+    @RequestMapping(value = "/rules",
         method = RequestMethod.GET)
-    default ResponseEntity<Resource> downLoadZipInFileGet() {
+    default ResponseEntity<RuleResponse> rulesGet(@ApiParam(value = "rule types",required=true) @PathVariable("type") String type,@ApiParam(value = "if business rule",required=true) @PathVariable("ruleSetName") String ruleSetName,@ApiParam(value = "if table rule,table set/table name",required=true) @PathVariable("tableName") String tableName,@ApiParam(value = "Hu B2c",required=true) @PathVariable("tenantId") String tenantId,@ApiParam(value = "v0.1.0",required=true) @PathVariable("version") String version) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
-            if (getAcceptHeader().get().contains("")) {
+            if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("", Resource.class), HttpStatus.NOT_IMPLEMENTED);
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"ruleInBytes\" : \"ruleInBytes\"}", RuleResponse.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
-                    log.error("Couldn't serialize response for content type ", e);
+                    log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
                 }
             }
