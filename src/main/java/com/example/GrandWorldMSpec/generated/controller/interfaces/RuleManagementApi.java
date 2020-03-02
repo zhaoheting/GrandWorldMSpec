@@ -6,6 +6,7 @@
 package com.example.GrandWorldMSpec.generated.controller.interfaces;
 
 import org.springframework.core.io.Resource;
+import com.example.GrandWorldMSpec.generated.model.RuleResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
@@ -28,12 +29,12 @@ import javax.validation.constraints.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-01T11:32:39.229+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-02T14:17:48.563+08:00")
 
-@Api(value = "FileManagement", description = "the FileManagement API")
-public interface FileManagementApi {
+@Api(value = "RuleManagement", description = "the RuleManagement API", tags = "RuleManagement")
+public interface RuleManagementApi {
 
-    Logger log = LoggerFactory.getLogger(FileManagementApi.class);
+    Logger log = LoggerFactory.getLogger(RuleManagementApi.class);
 
     default Optional<ObjectMapper> getObjectMapper() {
         return Optional.empty();
@@ -47,37 +48,37 @@ public interface FileManagementApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "Load rules from SDK.", nickname = "downLoadZipInBytesGet", notes = "Load rules from SDK.", response = String.class, responseContainer = "List", tags={ "FileManagement", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Return a zip file.", response = String.class, responseContainer = "List"),
+    @ApiOperation(value = "Load rules from SDK.", nickname = "downLoadZipInBytesGet", notes = "Return a zip file as a byte array in customised response entity,then the client can get the array.", response = RuleResponse.class, tags={ "RuleManagement", })
+    @ApiResponses(value = {
+        @ApiResponse(code = 200, message = "Return a zip file as a byte array in customised response entity successfully.", response = RuleResponse.class),
         @ApiResponse(code = 400, message = "Invalid ID supplied"),
         @ApiResponse(code = 404, message = "not found") })
     @RequestMapping(value = "/downLoadZipInBytes",
         method = RequestMethod.GET)
-    default ResponseEntity<List<String>> downLoadZipInBytesGet() {
+    default ResponseEntity<RuleResponse> downLoadZipInBytesGet() {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("[ \"\", \"\" ]", List.class), HttpStatus.NOT_IMPLEMENTED);
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"ruleInBytes\" : \"ruleInBytes\"}", RuleResponse.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
                 }
             }
         } else {
-            log.warn("ObjectMapper or HttpServletRequest not configured in default FileManagementApi interface so no example is generated");
+            log.warn("ObjectMapper or HttpServletRequest not configured in default RuleManagementApi interface so no example is generated");
         }
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
 
-    @ApiOperation(value = "Load rules from SDK.", nickname = "downLoadZipInFileGet", notes = "Load rules from SDK.", response = Resource.class, tags={ "FileManagement", })
-    @ApiResponses(value = { 
+    @ApiOperation(value = "Load rules from SDK.", nickname = "downLoadZipInFileGet", notes = "Return a zip file as a byte array in customised response entity,then the file can be downloaded from front end.", response = Resource.class, tags={ "RuleManagement", })
+    @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Return a zip file.", response = Resource.class),
         @ApiResponse(code = 400, message = "Invalid ID supplied"),
         @ApiResponse(code = 404, message = "not found") })
     @RequestMapping(value = "/downLoadZipInFile",
-        produces = { "application/octet-stream" }, 
+        produces = { "application/octet-stream" },
         consumes = { "application/octet-stream" },
         method = RequestMethod.GET)
     default ResponseEntity<Resource> downLoadZipInFileGet() {
@@ -91,31 +92,7 @@ public interface FileManagementApi {
                 }
             }
         } else {
-            log.warn("ObjectMapper or HttpServletRequest not configured in default FileManagementApi interface so no example is generated");
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-    }
-
-
-    @ApiOperation(value = "Load rules from SDK.", nickname = "downloadZipInStringGet", notes = "Load rules from SDK.", response = String.class, tags={ "FileManagement", })
-    @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Return a zip file.", response = String.class),
-        @ApiResponse(code = 400, message = "Invalid ID supplied"),
-        @ApiResponse(code = 404, message = "Pet not found") })
-    @RequestMapping(value = "/downloadZipInString",
-        method = RequestMethod.GET)
-    default ResponseEntity<String> downloadZipInStringGet() {
-        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
-            if (getAcceptHeader().get().contains("application/json")) {
-                try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("\"\"", String.class), HttpStatus.NOT_IMPLEMENTED);
-                } catch (IOException e) {
-                    log.error("Couldn't serialize response for content type application/json", e);
-                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-                }
-            }
-        } else {
-            log.warn("ObjectMapper or HttpServletRequest not configured in default FileManagementApi interface so no example is generated");
+            log.warn("ObjectMapper or HttpServletRequest not configured in default RuleManagementApi interface so no example is generated");
         }
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }

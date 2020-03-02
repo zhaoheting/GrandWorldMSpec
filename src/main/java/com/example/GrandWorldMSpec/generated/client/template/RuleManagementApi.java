@@ -3,6 +3,7 @@ package com.example.GrandWorldMSpec.generated.client.template;
 import com.example.GrandWorldMSpec.generated.client.ApiClient;
 
 import java.io.File;
+import com.example.GrandWorldMSpec.generated.model.RuleResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,16 +25,16 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
 
-@Component("com.example.GrandWorldMSpec.generated.client.template.FileManagementApi")
-public class FileManagementApi {
+@Component("com.example.GrandWorldMSpec.generated.client.template.RuleManagementApi")
+public class RuleManagementApi {
     private ApiClient apiClient;
 
-    public FileManagementApi() {
+    public RuleManagementApi() {
         this(new ApiClient());
     }
 
     @Autowired
-    public FileManagementApi(ApiClient apiClient) {
+    public RuleManagementApi(ApiClient apiClient) {
         this.apiClient = apiClient;
     }
 
@@ -47,14 +48,14 @@ public class FileManagementApi {
 
     /**
      * Load rules from SDK.
-     * Load rules from SDK.
-     * <p><b>200</b> - Return a zip file.
+     * Return a zip file as a byte array in customised response entity,then the client can get the array.
+     * <p><b>200</b> - Return a zip file as a byte array in customised response entity successfully.
      * <p><b>400</b> - Invalid ID supplied
      * <p><b>404</b> - not found
-     * @return List&lt;String&gt;
+     * @return RuleResponse
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public List<String> downLoadZipInBytesGet() throws RestClientException {
+    public RuleResponse downLoadZipInBytesGet() throws RestClientException {
         Object postBody = null;
         
         String path = UriComponentsBuilder.fromPath("/downLoadZipInBytes").build().toUriString();
@@ -70,12 +71,12 @@ public class FileManagementApi {
 
         String[] authNames = new String[] {  };
 
-        ParameterizedTypeReference<List<String>> returnType = new ParameterizedTypeReference<List<String>>() {};
+        ParameterizedTypeReference<RuleResponse> returnType = new ParameterizedTypeReference<RuleResponse>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
      * Load rules from SDK.
-     * Load rules from SDK.
+     * Return a zip file as a byte array in customised response entity,then the file can be downloaded from front end.
      * <p><b>200</b> - Return a zip file.
      * <p><b>400</b> - Invalid ID supplied
      * <p><b>404</b> - not found
@@ -103,34 +104,6 @@ public class FileManagementApi {
         String[] authNames = new String[] {  };
 
         ParameterizedTypeReference<File> returnType = new ParameterizedTypeReference<File>() {};
-        return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
-    }
-    /**
-     * Load rules from SDK.
-     * Load rules from SDK.
-     * <p><b>200</b> - Return a zip file.
-     * <p><b>400</b> - Invalid ID supplied
-     * <p><b>404</b> - Pet not found
-     * @return String
-     * @throws RestClientException if an error occurs while attempting to invoke the API
-     */
-    public String downloadZipInStringGet() throws RestClientException {
-        Object postBody = null;
-        
-        String path = UriComponentsBuilder.fromPath("/downloadZipInString").build().toUriString();
-        
-        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
-        final HttpHeaders headerParams = new HttpHeaders();
-        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
-
-        final String[] accepts = { };
-        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
-        final String[] contentTypes = { };
-        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
-
-        String[] authNames = new String[] {  };
-
-        ParameterizedTypeReference<String> returnType = new ParameterizedTypeReference<String>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
 }

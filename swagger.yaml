@@ -12,30 +12,17 @@ schemes:
   - http
   - https
 tags:
-  - name: FileManagement
-    description: DownloadZip
+  - name: RuleManagement
+    description: Download Zip
 paths:
-  /downloadZipInString:
-    get:
-      tags:
-        - FileManagement
-      summary: Load rules from SDK.
-      description: Load rules from SDK.
-      responses:
-        '200':
-          description: Return a zip file.
-          schema:
-            type: string
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Pet not found
   /downLoadZipInFile:
     get:
       tags:
-        - FileManagement
+        - RuleManagement
       summary: Load rules from SDK.
-      description: Load rules from SDK.
+      description: >-
+        Return a zip file as a byte array in customised response entity,then the
+        file can be downloaded from front end.
       produces:
         - application/octet-stream
       consumes:
@@ -52,17 +39,28 @@ paths:
   /downLoadZipInBytes:
     get:
       tags:
-        - FileManagement
+        - RuleManagement
       summary: Load rules from SDK.
-      description: Load rules from SDK.
+      description: >-
+        Return a zip file as a byte array in customised response entity,then the
+        client can get the array.
       responses:
         '200':
-          description: Return a zip file.
+          description: >-
+            Return a zip file as a byte array in customised response entity
+            successfully.
           schema:
-            type: array
-            items:
-              type: string
+            $ref: '#/definitions/ruleResponse'
         '400':
           description: Invalid ID supplied
         '404':
           description: not found
+definitions:
+  ruleResponse:
+    description: transform the result
+    type: object
+    properties:
+      ruleInBytes:
+        type: string
+        format: byte
+        description: put zip file in a byte array.
