@@ -2,6 +2,7 @@ package com.example.GrandWorldMSpec.generated.client.template;
 
 import com.example.GrandWorldMSpec.generated.client.ApiClient;
 
+import com.example.GrandWorldMSpec.generated.model.ActivatedInfo;
 import java.io.File;
 import com.example.GrandWorldMSpec.generated.model.RuleResponse;
 
@@ -206,5 +207,43 @@ public class RuleManagementApi {
 
         ParameterizedTypeReference<RuleResponse> returnType = new ParameterizedTypeReference<RuleResponse>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
+    }
+    /**
+     * Report subscriber&#39;s latest information from sdk.
+     * fff.
+     * <p><b>200</b> - Return a zip file.
+     * <p><b>400</b> - Invalid ID supplied
+     * <p><b>404</b> - Pet not found
+     * @param subscriberId The subscriberId parameter
+     * @param activatedRuleInfoList Activated Rule Info List.
+     * @return String
+     * @throws RestClientException if an error occurs while attempting to invoke the API
+     */
+    public String rulesSubscribersSubscriberIdActivatedInfoPost(String subscriberId, List<ActivatedInfo> activatedRuleInfoList) throws RestClientException {
+        Object postBody = activatedRuleInfoList;
+        
+        // verify the required parameter 'subscriberId' is set
+        if (subscriberId == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'subscriberId' when calling rulesSubscribersSubscriberIdActivatedInfoPost");
+        }
+        
+        // create path and map variables
+        final Map<String, Object> uriVariables = new HashMap<String, Object>();
+        uriVariables.put("subscriberId", subscriberId);
+        String path = UriComponentsBuilder.fromPath("/rules/subscribers/{subscriberId}/activatedInfo").buildAndExpand(uriVariables).toUriString();
+        
+        final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
+        final HttpHeaders headerParams = new HttpHeaders();
+        final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
+
+        final String[] accepts = { };
+        final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
+        final String[] contentTypes = { };
+        final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
+
+        String[] authNames = new String[] {  };
+
+        ParameterizedTypeReference<String> returnType = new ParameterizedTypeReference<String>() {};
+        return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
 }

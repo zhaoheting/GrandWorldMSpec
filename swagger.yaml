@@ -98,7 +98,7 @@ paths:
           type: string
         - name: tableName
           in: path
-          description: if table rule,table set/table name
+          description: 'if table rule,table set/table name'
           required: true
           type: string
         - name: tenantId
@@ -122,6 +122,33 @@ paths:
           description: Invalid ID supplied
         '404':
           description: not found
+  '/rules/subscribers/{subscriberId}/activatedInfo':
+    post:
+      tags:
+        - RuleManagement
+      summary: Report subscriber's latest information from sdk.
+      description: fff.
+      parameters:
+        - name: subscriberId
+          required: true
+          in: path
+          type: string
+        - name: activatedRuleInfoList
+          description: Activated Rule Info List.
+          in: body
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/ActivatedInfo'
+      responses:
+        '200':
+          description: Return a zip file.
+          schema:
+            type: string
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
 definitions:
   ruleResponse:
     description: transform the result
@@ -131,3 +158,21 @@ definitions:
         type: string
         format: byte
         description: put zip file in a byte array.
+  ActivatedInfo:
+    type: object
+    description: jkljk
+    properties:
+      ruleGroup:
+        type: string
+        description: jkljk
+      ruleList:
+        description: jkljkarray
+        type: array
+        items:
+          type: string
+      version:
+        type: string
+        description: jkljk
+      activatedTime:
+        type: string
+        description: current time

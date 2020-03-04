@@ -5,6 +5,8 @@
  */
 package com.example.GrandWorldMSpec.generated.controller.interfaces;
 
+import com.example.GrandWorldMSpec.generated.model.ActivatedInfo;
+import java.util.List;
 import org.springframework.core.io.Resource;
 import com.example.GrandWorldMSpec.generated.model.RuleResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,9 +31,9 @@ import javax.validation.constraints.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-02T16:04:29.408+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-04T16:16:02.453+08:00")
 
-@Api(value = "RuleManagement", description = "the RuleManagement API", tags = "Rule Management")
+@Api(value = "RuleManagement", description = "the RuleManagement API")
 public interface RuleManagementApi {
 
     Logger log = LoggerFactory.getLogger(RuleManagementApi.class);
@@ -112,6 +114,30 @@ public interface RuleManagementApi {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
                     return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"ruleInBytes\" : \"ruleInBytes\"}", RuleResponse.class), HttpStatus.NOT_IMPLEMENTED);
+                } catch (IOException e) {
+                    log.error("Couldn't serialize response for content type application/json", e);
+                    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+                }
+            }
+        } else {
+            log.warn("ObjectMapper or HttpServletRequest not configured in default RuleManagementApi interface so no example is generated");
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
+
+
+    @ApiOperation(value = "Report subscriber's latest information from sdk.", nickname = "rulesSubscribersSubscriberIdActivatedInfoPost", notes = "fff.", response = String.class, tags={ "RuleManagement", })
+    @ApiResponses(value = { 
+        @ApiResponse(code = 200, message = "Return a zip file.", response = String.class),
+        @ApiResponse(code = 400, message = "Invalid ID supplied"),
+        @ApiResponse(code = 404, message = "Pet not found") })
+    @RequestMapping(value = "/rules/subscribers/{subscriberId}/activatedInfo",
+        method = RequestMethod.POST)
+    default ResponseEntity<String> rulesSubscribersSubscriberIdActivatedInfoPost(@ApiParam(value = "",required=true) @PathVariable("subscriberId") String subscriberId,@ApiParam(value = "Activated Rule Info List."  )  @Valid @RequestBody List<ActivatedInfo> activatedRuleInfoList) {
+        if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
+            if (getAcceptHeader().get().contains("application/json")) {
+                try {
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("\"\"", String.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
