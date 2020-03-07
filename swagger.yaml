@@ -13,121 +13,106 @@ schemes:
   - https
 tags:
   - name: Rule Management
-    description: Download Zip
+    description: Rule management.
 paths:
-  /ruleBundles:
+  /ruleSubscription:
     post:
       tags:
         - Rule Management
-      summary: Accept rule pushes request from console to store it.
-      description: Accept rule pushes request from console to store it.
-      operationId: pushRuleBundles
-      produces:
-        - application/json
-      consumes:
-        - multipart/form-data
+      summary: rule subscription
+      description: rule subscription
       parameters:
-        - name: types
-          in: path
-          description: rule types
-          required: true
-          type: string
-        - name: tenantId
-          in: path
-          description: tenant id
-          required: true
-          type: string
-        - name: version
-          in: path
-          description: rule version
-          required: true
-          type: string
-        - name: ruleZip
-          in: formData
-          description: rule bundles
-          required: true
-          type: file
-      responses:
-        '200':
-          description: RuleBundle ID
-          schema:
-            type: string
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Pet not found
-  /downLoadZipInFile:
-    get:
-      tags:
-        - Rule Management
-      summary: Load rules from SDK.
-      description: >-
-        Return a zip file as a byte array in customised response entity,then the
-        file can be downloaded from front end.
-      produces:
-        - application/octet-stream
-      consumes:
-        - application/octet-stream
-      responses:
-        '200':
-          description: Return a zip file.
-          schema:
-            type: file
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: not found
-  /rules:
-    get:
-      tags:
-        - Rule Management
-      summary: Load rules from SDK.
-      description: >-
-        Return a zip file as a byte array in customised response entity,then the
-        client can get the array.
-      parameters:
-        - name: type
-          in: path
-          description: rule types
-          required: true
-          type: string
-        - name: ruleSetName
-          in: path
-          description: if business rule
-          required: true
-          type: string
-        - name: tableName
-          in: path
-          description: if table rule,table set/table name
-          required: true
-          type: string
-        - name: tenantId
-          in: path
-          description: Hu B2c
-          required: true
-          type: string
-        - name: version
-          in: path
-          description: v0.1.0
-          required: true
-          type: string
-      responses:
-        '200':
+        - name: subscriberReport
+          in: body
           description: >-
-            Return a zip file as a byte array in customised response entity
-            successfully.
+            uuid that rule engine service generated, null if this is the first
+            time.
           schema:
-            $ref: '#/definitions/ruleResponse'
+            $ref: '#/definitions/SubscriberReport'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/SubscriberReport'
         '400':
-          description: Invalid ID supplied
-        '404':
-          description: not found
+          description: Invalid status value
 definitions:
-  ruleResponse:
-    description: transform the result
+  Rule:
+    description: Rule entity of both table rule and business rule.
     type: object
     properties:
-      ruleInBytes:
+      name:
         type: string
-        format: byte
-        description: put zip file in a byte array.
+        description: The name of a table rule or business rule.
+      lastUpdated:
+        type: string
+        format: date
+        description: Last report time of the name.
+      tenantCode:
+        type: string
+        description: Code of the tenant.
+  RuleGroup:
+    description: Rule group entity of table rule or business rule.
+    type: object
+    properties:
+      ruleGroupName:
+        type: string
+        description: The name of table rule's bundle or business rule's ruleset.
+      ruleList:
+        type: array
+        items:
+          $ref: '#/definitions/Rule'
+        description: The subscribed rules of the group.
+      lastUpdated:
+        type: string
+        description: Last report time of the group.
+  SubscriptionInfo:
+    type: object
+    description: Read from subscriber’s own properties.
+    properties:
+      tableRules:
+        type: array
+        items:
+          $ref: '#/definitions/RuleGroup'
+        description: Group list of table rule.
+      businessRules:
+        type: array
+        items:
+          $ref: '#/definitions/RuleGroup'
+        description: Group list of table rule business rule.
+  SubscriberReport:
+    description: The data model of subscriber report.
+    type: object
+    properties:
+      key:
+        type: string
+        description: >-
+          UUID that rule engine service generated, null if this is the first
+          time.
+      name:
+        type: string
+        description: 'Subscriber service name, read from subscriber’s own properties.'
+      status:
+        type: string
+        description: success or error (status of the subscription)
+      address:
+        type: string
+        description: Subscriber’s IP address.
+      lastUpdated:
+        type: string
+        format: date
+        description: Timestamp of when this subscriber reload itself last time.
+      lastUpdated2:
+        type: string
+        format: timestamp
+      lastUpdated3:
+        type: string
+        format: datetime
+      metadata:
+        type: string
+        description: >-
+          metadata of the subscriber it wants to use, such as subscriber’s
+          service version.
+      subscriptionInfo:
+        description: sdf
+        $ref: '#/definitions/SubscriptionInfo'
