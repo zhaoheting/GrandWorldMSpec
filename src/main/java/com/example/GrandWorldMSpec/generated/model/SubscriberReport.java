@@ -16,7 +16,7 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "The data model of subscriber report.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-07T11:53:20.628+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-07T20:48:33.284+08:00")
 
 public class SubscriberReport   {
   @JsonProperty("key")
@@ -33,12 +33,6 @@ public class SubscriberReport   {
 
   @JsonProperty("lastUpdated")
   private LocalDate lastUpdated = null;
-
-  @JsonProperty("lastUpdated2")
-  private String lastUpdated2 = null;
-
-  @JsonProperty("lastUpdated3")
-  private String lastUpdated3 = null;
 
   @JsonProperty("metadata")
   private String metadata = null;
@@ -147,46 +141,6 @@ public class SubscriberReport   {
     this.lastUpdated = lastUpdated;
   }
 
-  public SubscriberReport lastUpdated2(String lastUpdated2) {
-    this.lastUpdated2 = lastUpdated2;
-    return this;
-  }
-
-  /**
-   * Get lastUpdated2
-   * @return lastUpdated2
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public String getLastUpdated2() {
-    return lastUpdated2;
-  }
-
-  public void setLastUpdated2(String lastUpdated2) {
-    this.lastUpdated2 = lastUpdated2;
-  }
-
-  public SubscriberReport lastUpdated3(String lastUpdated3) {
-    this.lastUpdated3 = lastUpdated3;
-    return this;
-  }
-
-  /**
-   * Get lastUpdated3
-   * @return lastUpdated3
-  **/
-  @ApiModelProperty(value = "")
-
-
-  public String getLastUpdated3() {
-    return lastUpdated3;
-  }
-
-  public void setLastUpdated3(String lastUpdated3) {
-    this.lastUpdated3 = lastUpdated3;
-  }
-
   public SubscriberReport metadata(String metadata) {
     this.metadata = metadata;
     return this;
@@ -213,10 +167,10 @@ public class SubscriberReport   {
   }
 
   /**
-   * sdf
+   * A subscription info entity.
    * @return subscriptionInfo
   **/
-  @ApiModelProperty(value = "sdf")
+  @ApiModelProperty(value = "A subscription info entity.")
 
   @Valid
 
@@ -243,15 +197,13 @@ public class SubscriberReport   {
         Objects.equals(this.status, subscriberReport.status) &&
         Objects.equals(this.address, subscriberReport.address) &&
         Objects.equals(this.lastUpdated, subscriberReport.lastUpdated) &&
-        Objects.equals(this.lastUpdated2, subscriberReport.lastUpdated2) &&
-        Objects.equals(this.lastUpdated3, subscriberReport.lastUpdated3) &&
         Objects.equals(this.metadata, subscriberReport.metadata) &&
         Objects.equals(this.subscriptionInfo, subscriberReport.subscriptionInfo);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(key, name, status, address, lastUpdated, lastUpdated2, lastUpdated3, metadata, subscriptionInfo);
+    return Objects.hash(key, name, status, address, lastUpdated, metadata, subscriptionInfo);
   }
 
   @Override
@@ -264,8 +216,6 @@ public class SubscriberReport   {
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("    lastUpdated: ").append(toIndentedString(lastUpdated)).append("\n");
-    sb.append("    lastUpdated2: ").append(toIndentedString(lastUpdated2)).append("\n");
-    sb.append("    lastUpdated3: ").append(toIndentedString(lastUpdated3)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
     sb.append("    subscriptionInfo: ").append(toIndentedString(subscriptionInfo)).append("\n");
     sb.append("}");

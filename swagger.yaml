@@ -2,7 +2,7 @@ swagger: '2.0'
 info:
   description: the description of apiinfo.
   version: 1.0.0
-  title: Learn how to use swagger.
+  title: Rule Engine Service.
   contact:
     name: openjaw team
     email: heting.zhao@www.com
@@ -13,7 +13,7 @@ schemes:
   - https
 tags:
   - name: Rule Management
-    description: Download Zip
+    description: Three interfaces of rule Management.
 paths:
   /ruleSubscription:
     post:
@@ -21,6 +21,7 @@ paths:
         - Rule Management
       summary: rule subscription
       description: rule subscription
+      operationId: ruleSubscribe
       parameters:
         - name: subscriberReport
           in: body
@@ -34,6 +35,46 @@ paths:
           description: successful operation
           schema:
             $ref: '#/definitions/SubscriberReport'
+        '400':
+          description: Invalid status value
+  /tableRule:
+    get:
+      tags:
+        - Rule Management
+      operationId: getTableRule
+      summary: Load table rule from SDK.
+      description: Load table rule from SDK.
+      parameters:
+        - $ref: '#/parameters/ruleGroupName'
+        - $ref: '#/parameters/ruleName'
+        - $ref: '#/parameters/tenantId'
+        - $ref: '#/parameters/version'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pageSize'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/TableRuleLoadResponse'
+        '400':
+          description: Invalid status value
+  /businessRule:
+    get:
+      tags:
+        - Rule Management
+      operationId: getBusinessRule
+      summary: Load business rule from SDK.
+      description: Load business rule from SDK.
+      parameters:
+        - $ref: '#/parameters/ruleGroupName'
+        - $ref: '#/parameters/ruleName'
+        - $ref: '#/parameters/tenantId'
+        - $ref: '#/parameters/version'
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/BusinessRuleLoadResponse'
         '400':
           description: Invalid status value
 definitions:
@@ -110,3 +151,169 @@ definitions:
       subscriptionInfo:
         description: A subscription info entity.
         $ref: '#/definitions/SubscriptionInfo'
+  TableRuleDefinition:
+    type: object
+    description: Table rule definition entity.
+    properties:
+      id:
+        type: string
+        description: Identifier.
+      group:
+        type: string
+      name:
+        type: string
+      version:
+        type: string
+      definitionContent:
+        type: string
+      lastUpdated:
+        type: string
+        format: date
+        description: Timestamp when it’s last updated
+      status:
+        type: string
+        enum: [Pending,Activated,Dropped]
+      auditId:
+        type: integer
+        format: int64
+        description: Foreign key references to the audit table.
+  TableRuleData:
+    type: object
+    description: One row of table rule.
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: Identifier
+      ruleDefinitionId:
+        type: integer
+        format: int32
+        description: Foreign key.
+      rowContent:
+        type: string
+        description: XML Clob with each row content
+      tenantKey:
+        type: string
+      rowId:
+        type: integer
+        format: int32
+        description: Integer ID of each row, defines the order of each row.
+  BusinessRuleSetDefinition:
+    type: object
+    description: Business rule-set definition entity.
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: Identifier
+      RuleSetName:
+        type: string
+        description: Business rule set name.
+      version:
+        type: string
+      definitionContent:
+        type: string
+        description: XML Clob with rule-set definition.
+      compiledContent:
+        type: string
+        description: Java content compiled from the rule content. Suppose each rule-set definition only generates one java file.
+      lastUpdated:
+        type: string
+        format: date
+        description: Timestamp when it’s last updated.
+      status:
+        type: string
+        enum: [Pending,Activated,Dropped]
+      auditId:
+        type: integer
+        format: int32
+        description: Foreign key references to the audit table.
+  BusinessRule:
+    type: object
+    description: Business rule entity.
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: Identifier
+      ruleDefinitionId:
+        type: integer
+        format: int32
+        description: Foreign key.
+      ruleName:
+        type: string
+        description: Name of this business rule.
+      tenantKey:
+        type: string
+      rowContent:
+        type: string
+        description: Taken from the latest version of this business rule received from Console.
+      compiledContent:
+        type: string
+        description: Java content compiled from the rule content. Suppose each rule only generates one java file.
+  TableRuleLoadResponse:
+    type: object
+    description: Response model of load table rule interface.
+    properties:
+      definition:
+        type: object
+        $ref: '#/definitions/TableRuleDefinition'
+      rows:
+        type: array
+        description: All rows of the table rule.
+        items:
+          $ref: '#/definitions/TableRuleData'
+      total:
+        type: integer
+        format: int32
+        description: The total rows of the table rule.
+  BusinessRuleLoadResponse:
+    type: object
+    description: Response model of load business rule interface.
+    properties:
+      definition:
+        type: object
+        $ref: '#/definitions/BusinessRuleSetDefinition'
+      content:
+        type: string
+        format: byte
+        description: The content of the business rule in byte array.
+parameters:
+  ruleGroupName:
+    name: ruleGroupName
+    in: path
+    type: string
+    required: true
+    description: The name of table rule's bundle or business rule's ruleset.
+  ruleName:
+    name: ruleName
+    in: path
+    type: string
+    required: true
+    description: The name of a table rule or business rule.
+  tenantId:
+    name: tenantId
+    in: path
+    type: string
+    required: true
+    description: Code of the tenant.
+  version:
+    name: version
+    in: path
+    type: string
+    required: true
+    description: Rule version.
+  page:
+    name: page
+    in: path
+    type: integer
+    format: int32
+    required: true
+    default: 1
+  pageSize:
+    name: pageSize
+    in: path
+    type: integer
+    format: int32
+    required: true
+    default: 1000

@@ -1,5 +1,5 @@
 /*
- * Learn how to use swagger.
+ * Rule Engine Service.
  * the description of apiinfo.
  *
  * OpenAPI spec version: 1.0.0
