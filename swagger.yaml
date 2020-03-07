@@ -13,7 +13,7 @@ schemes:
   - https
 tags:
   - name: Rule Management
-    description: Rule management.
+    description: Download Zip
 paths:
   /ruleSubscription:
     post:
@@ -102,17 +102,11 @@ definitions:
         type: string
         format: date
         description: Timestamp of when this subscriber reload itself last time.
-      lastUpdated2:
-        type: string
-        format: timestamp
-      lastUpdated3:
-        type: string
-        format: datetime
       metadata:
         type: string
         description: >-
           metadata of the subscriber it wants to use, such as subscriber’s
           service version.
       subscriptionInfo:
-        description: sdf
+        description: A subscription info entity.
         $ref: '#/definitions/SubscriptionInfo'
