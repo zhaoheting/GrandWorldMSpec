@@ -5,29 +5,28 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.LocalDate;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Rule entity of both table rule and business rule.
+ * Rule summary info of both table rule and business rule.
  */
-@ApiModel(description = "Rule entity of both table rule and business rule.")
+@ApiModel(description = "Rule summary info of both table rule and business rule.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-07T20:48:33.284+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T15:19:04.437+08:00")
 
-public class Rule   {
+public class RuleSummary   {
   @JsonProperty("name")
   private String name = null;
 
   @JsonProperty("lastUpdated")
-  private LocalDate lastUpdated = null;
+  private String lastUpdated = null;
 
-  @JsonProperty("tenantCode")
-  private String tenantCode = null;
+  @JsonProperty("tenantKey")
+  private String tenantKey = null;
 
-  public Rule name(String name) {
+  public RuleSummary name(String name) {
     this.name = name;
     return this;
   }
@@ -47,7 +46,7 @@ public class Rule   {
     this.name = name;
   }
 
-  public Rule lastUpdated(LocalDate lastUpdated) {
+  public RuleSummary lastUpdated(String lastUpdated) {
     this.lastUpdated = lastUpdated;
     return this;
   }
@@ -58,34 +57,33 @@ public class Rule   {
   **/
   @ApiModelProperty(value = "Last report time of the name.")
 
-  @Valid
 
-  public LocalDate getLastUpdated() {
+  public String getLastUpdated() {
     return lastUpdated;
   }
 
-  public void setLastUpdated(LocalDate lastUpdated) {
+  public void setLastUpdated(String lastUpdated) {
     this.lastUpdated = lastUpdated;
   }
 
-  public Rule tenantCode(String tenantCode) {
-    this.tenantCode = tenantCode;
+  public RuleSummary tenantKey(String tenantKey) {
+    this.tenantKey = tenantKey;
     return this;
   }
 
   /**
    * Code of the tenant.
-   * @return tenantCode
+   * @return tenantKey
   **/
   @ApiModelProperty(value = "Code of the tenant.")
 
 
-  public String getTenantCode() {
-    return tenantCode;
+  public String getTenantKey() {
+    return tenantKey;
   }
 
-  public void setTenantCode(String tenantCode) {
-    this.tenantCode = tenantCode;
+  public void setTenantKey(String tenantKey) {
+    this.tenantKey = tenantKey;
   }
 
 
@@ -97,25 +95,25 @@ public class Rule   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Rule rule = (Rule) o;
-    return Objects.equals(this.name, rule.name) &&
-        Objects.equals(this.lastUpdated, rule.lastUpdated) &&
-        Objects.equals(this.tenantCode, rule.tenantCode);
+    RuleSummary ruleSummary = (RuleSummary) o;
+    return Objects.equals(this.name, ruleSummary.name) &&
+        Objects.equals(this.lastUpdated, ruleSummary.lastUpdated) &&
+        Objects.equals(this.tenantKey, ruleSummary.tenantKey);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, lastUpdated, tenantCode);
+    return Objects.hash(name, lastUpdated, tenantKey);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Rule {\n");
+    sb.append("class RuleSummary {\n");
     
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    lastUpdated: ").append(toIndentedString(lastUpdated)).append("\n");
-    sb.append("    tenantCode: ").append(toIndentedString(tenantCode)).append("\n");
+    sb.append("    tenantKey: ").append(toIndentedString(tenantKey)).append("\n");
     sb.append("}");
     return sb.toString();
   }

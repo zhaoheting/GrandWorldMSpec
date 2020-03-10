@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.LocalDate;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -16,7 +15,7 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "Business rule-set definition entity.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-07T20:48:33.284+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T15:19:04.437+08:00")
 
 public class BusinessRuleSetDefinition   {
   @JsonProperty("id")
@@ -32,10 +31,10 @@ public class BusinessRuleSetDefinition   {
   private String definitionContent = null;
 
   @JsonProperty("compiledContent")
-  private String compiledContent = null;
+  private byte[] compiledContent = null;
 
   @JsonProperty("lastUpdated")
-  private LocalDate lastUpdated = null;
+  private String lastUpdated = null;
 
   /**
    * Gets or Sets status
@@ -156,7 +155,7 @@ public class BusinessRuleSetDefinition   {
     this.definitionContent = definitionContent;
   }
 
-  public BusinessRuleSetDefinition compiledContent(String compiledContent) {
+  public BusinessRuleSetDefinition compiledContent(byte[] compiledContent) {
     this.compiledContent = compiledContent;
     return this;
   }
@@ -167,16 +166,16 @@ public class BusinessRuleSetDefinition   {
   **/
   @ApiModelProperty(value = "Java content compiled from the rule content. Suppose each rule-set definition only generates one java file.")
 
-
-  public String getCompiledContent() {
+@Pattern(regexp="^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$") 
+  public byte[] getCompiledContent() {
     return compiledContent;
   }
 
-  public void setCompiledContent(String compiledContent) {
+  public void setCompiledContent(byte[] compiledContent) {
     this.compiledContent = compiledContent;
   }
 
-  public BusinessRuleSetDefinition lastUpdated(LocalDate lastUpdated) {
+  public BusinessRuleSetDefinition lastUpdated(String lastUpdated) {
     this.lastUpdated = lastUpdated;
     return this;
   }
@@ -187,13 +186,12 @@ public class BusinessRuleSetDefinition   {
   **/
   @ApiModelProperty(value = "Timestamp when it’s last updated.")
 
-  @Valid
 
-  public LocalDate getLastUpdated() {
+  public String getLastUpdated() {
     return lastUpdated;
   }
 
-  public void setLastUpdated(LocalDate lastUpdated) {
+  public void setLastUpdated(String lastUpdated) {
     this.lastUpdated = lastUpdated;
   }
 

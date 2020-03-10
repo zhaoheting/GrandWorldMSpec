@@ -7,8 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -18,20 +16,16 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "Response model of load table rule interface.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-07T20:48:33.284+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T15:19:04.437+08:00")
 
-public class TableRuleLoadResponse   {
+public class TableRuleResponse   {
   @JsonProperty("definition")
   private TableRuleDefinition definition = null;
 
-  @JsonProperty("rows")
-  @Valid
-  private List<TableRuleData> rows = null;
+  @JsonProperty("data")
+  private TableRuleData data = null;
 
-  @JsonProperty("total")
-  private Integer total = null;
-
-  public TableRuleLoadResponse definition(TableRuleDefinition definition) {
+  public TableRuleResponse definition(TableRuleDefinition definition) {
     this.definition = definition;
     return this;
   }
@@ -52,53 +46,25 @@ public class TableRuleLoadResponse   {
     this.definition = definition;
   }
 
-  public TableRuleLoadResponse rows(List<TableRuleData> rows) {
-    this.rows = rows;
-    return this;
-  }
-
-  public TableRuleLoadResponse addRowsItem(TableRuleData rowsItem) {
-    if (this.rows == null) {
-      this.rows = new ArrayList<>();
-    }
-    this.rows.add(rowsItem);
+  public TableRuleResponse data(TableRuleData data) {
+    this.data = data;
     return this;
   }
 
   /**
-   * All rows of the table rule.
-   * @return rows
+   * Data of the table rule.
+   * @return data
   **/
-  @ApiModelProperty(value = "All rows of the table rule.")
+  @ApiModelProperty(value = "Data of the table rule.")
 
   @Valid
 
-  public List<TableRuleData> getRows() {
-    return rows;
+  public TableRuleData getData() {
+    return data;
   }
 
-  public void setRows(List<TableRuleData> rows) {
-    this.rows = rows;
-  }
-
-  public TableRuleLoadResponse total(Integer total) {
-    this.total = total;
-    return this;
-  }
-
-  /**
-   * The total rows of the table rule.
-   * @return total
-  **/
-  @ApiModelProperty(value = "The total rows of the table rule.")
-
-
-  public Integer getTotal() {
-    return total;
-  }
-
-  public void setTotal(Integer total) {
-    this.total = total;
+  public void setData(TableRuleData data) {
+    this.data = data;
   }
 
 
@@ -110,25 +76,23 @@ public class TableRuleLoadResponse   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TableRuleLoadResponse tableRuleLoadResponse = (TableRuleLoadResponse) o;
-    return Objects.equals(this.definition, tableRuleLoadResponse.definition) &&
-        Objects.equals(this.rows, tableRuleLoadResponse.rows) &&
-        Objects.equals(this.total, tableRuleLoadResponse.total);
+    TableRuleResponse tableRuleResponse = (TableRuleResponse) o;
+    return Objects.equals(this.definition, tableRuleResponse.definition) &&
+        Objects.equals(this.data, tableRuleResponse.data);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(definition, rows, total);
+    return Objects.hash(definition, data);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TableRuleLoadResponse {\n");
+    sb.append("class TableRuleResponse {\n");
     
     sb.append("    definition: ").append(toIndentedString(definition)).append("\n");
-    sb.append("    rows: ").append(toIndentedString(rows)).append("\n");
-    sb.append("    total: ").append(toIndentedString(total)).append("\n");
+    sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("}");
     return sb.toString();
   }

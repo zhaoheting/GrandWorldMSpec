@@ -1,7 +1,7 @@
 package com.example.GrandWorldMSpec.generated.model;
 
 import java.util.Objects;
-import com.example.GrandWorldMSpec.generated.model.Rule;
+import com.example.GrandWorldMSpec.generated.model.RuleSummary;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
@@ -17,7 +17,7 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "Rule group entity of table rule or business rule.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-07T20:48:33.284+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T15:19:04.437+08:00")
 
 public class RuleGroup   {
   @JsonProperty("ruleGroupName")
@@ -25,7 +25,7 @@ public class RuleGroup   {
 
   @JsonProperty("ruleList")
   @Valid
-  private List<Rule> ruleList = null;
+  private List<RuleSummary> ruleList = null;
 
   @JsonProperty("lastUpdated")
   private String lastUpdated = null;
@@ -50,12 +50,12 @@ public class RuleGroup   {
     this.ruleGroupName = ruleGroupName;
   }
 
-  public RuleGroup ruleList(List<Rule> ruleList) {
+  public RuleGroup ruleList(List<RuleSummary> ruleList) {
     this.ruleList = ruleList;
     return this;
   }
 
-  public RuleGroup addRuleListItem(Rule ruleListItem) {
+  public RuleGroup addRuleListItem(RuleSummary ruleListItem) {
     if (this.ruleList == null) {
       this.ruleList = new ArrayList<>();
     }
@@ -71,11 +71,11 @@ public class RuleGroup   {
 
   @Valid
 
-  public List<Rule> getRuleList() {
+  public List<RuleSummary> getRuleList() {
     return ruleList;
   }
 
-  public void setRuleList(List<Rule> ruleList) {
+  public void setRuleList(List<RuleSummary> ruleList) {
     this.ruleList = ruleList;
   }
 

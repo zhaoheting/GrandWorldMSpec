@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.LocalDate;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -16,23 +15,17 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "The data model of subscriber report.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-07T20:48:33.284+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T15:19:04.437+08:00")
 
-public class SubscriberReport   {
-  @JsonProperty("key")
-  private String key = null;
-
+public class SubscriptionRequest   {
   @JsonProperty("name")
   private String name = null;
 
-  @JsonProperty("status")
-  private String status = null;
-
-  @JsonProperty("address")
-  private String address = null;
+  @JsonProperty("ipAddress")
+  private String ipAddress = null;
 
   @JsonProperty("lastUpdated")
-  private LocalDate lastUpdated = null;
+  private String lastUpdated = null;
 
   @JsonProperty("metadata")
   private String metadata = null;
@@ -40,27 +33,7 @@ public class SubscriberReport   {
   @JsonProperty("subscriptionInfo")
   private SubscriptionInfo subscriptionInfo = null;
 
-  public SubscriberReport key(String key) {
-    this.key = key;
-    return this;
-  }
-
-  /**
-   * UUID that rule engine service generated, null if this is the first time.
-   * @return key
-  **/
-  @ApiModelProperty(value = "UUID that rule engine service generated, null if this is the first time.")
-
-
-  public String getKey() {
-    return key;
-  }
-
-  public void setKey(String key) {
-    this.key = key;
-  }
-
-  public SubscriberReport name(String name) {
+  public SubscriptionRequest name(String name) {
     this.name = name;
     return this;
   }
@@ -80,47 +53,27 @@ public class SubscriberReport   {
     this.name = name;
   }
 
-  public SubscriberReport status(String status) {
-    this.status = status;
-    return this;
-  }
-
-  /**
-   * success or error (status of the subscription)
-   * @return status
-  **/
-  @ApiModelProperty(value = "success or error (status of the subscription)")
-
-
-  public String getStatus() {
-    return status;
-  }
-
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
-  public SubscriberReport address(String address) {
-    this.address = address;
+  public SubscriptionRequest ipAddress(String ipAddress) {
+    this.ipAddress = ipAddress;
     return this;
   }
 
   /**
    * Subscriber’s IP address.
-   * @return address
+   * @return ipAddress
   **/
   @ApiModelProperty(value = "Subscriber’s IP address.")
 
-
-  public String getAddress() {
-    return address;
+@Pattern(regexp="\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}") 
+  public String getIpAddress() {
+    return ipAddress;
   }
 
-  public void setAddress(String address) {
-    this.address = address;
+  public void setIpAddress(String ipAddress) {
+    this.ipAddress = ipAddress;
   }
 
-  public SubscriberReport lastUpdated(LocalDate lastUpdated) {
+  public SubscriptionRequest lastUpdated(String lastUpdated) {
     this.lastUpdated = lastUpdated;
     return this;
   }
@@ -131,17 +84,16 @@ public class SubscriberReport   {
   **/
   @ApiModelProperty(value = "Timestamp of when this subscriber reload itself last time.")
 
-  @Valid
 
-  public LocalDate getLastUpdated() {
+  public String getLastUpdated() {
     return lastUpdated;
   }
 
-  public void setLastUpdated(LocalDate lastUpdated) {
+  public void setLastUpdated(String lastUpdated) {
     this.lastUpdated = lastUpdated;
   }
 
-  public SubscriberReport metadata(String metadata) {
+  public SubscriptionRequest metadata(String metadata) {
     this.metadata = metadata;
     return this;
   }
@@ -161,7 +113,7 @@ public class SubscriberReport   {
     this.metadata = metadata;
   }
 
-  public SubscriberReport subscriptionInfo(SubscriptionInfo subscriptionInfo) {
+  public SubscriptionRequest subscriptionInfo(SubscriptionInfo subscriptionInfo) {
     this.subscriptionInfo = subscriptionInfo;
     return this;
   }
@@ -191,30 +143,26 @@ public class SubscriberReport   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    SubscriberReport subscriberReport = (SubscriberReport) o;
-    return Objects.equals(this.key, subscriberReport.key) &&
-        Objects.equals(this.name, subscriberReport.name) &&
-        Objects.equals(this.status, subscriberReport.status) &&
-        Objects.equals(this.address, subscriberReport.address) &&
-        Objects.equals(this.lastUpdated, subscriberReport.lastUpdated) &&
-        Objects.equals(this.metadata, subscriberReport.metadata) &&
-        Objects.equals(this.subscriptionInfo, subscriberReport.subscriptionInfo);
+    SubscriptionRequest subscriptionRequest = (SubscriptionRequest) o;
+    return Objects.equals(this.name, subscriptionRequest.name) &&
+        Objects.equals(this.ipAddress, subscriptionRequest.ipAddress) &&
+        Objects.equals(this.lastUpdated, subscriptionRequest.lastUpdated) &&
+        Objects.equals(this.metadata, subscriptionRequest.metadata) &&
+        Objects.equals(this.subscriptionInfo, subscriptionRequest.subscriptionInfo);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(key, name, status, address, lastUpdated, metadata, subscriptionInfo);
+    return Objects.hash(name, ipAddress, lastUpdated, metadata, subscriptionInfo);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class SubscriberReport {\n");
+    sb.append("class SubscriptionRequest {\n");
     
-    sb.append("    key: ").append(toIndentedString(key)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    ipAddress: ").append(toIndentedString(ipAddress)).append("\n");
     sb.append("    lastUpdated: ").append(toIndentedString(lastUpdated)).append("\n");
     sb.append("    metadata: ").append(toIndentedString(metadata)).append("\n");
     sb.append("    subscriptionInfo: ").append(toIndentedString(subscriptionInfo)).append("\n");

@@ -14,7 +14,7 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "Business rule entity.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-07T20:48:33.284+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T15:19:04.437+08:00")
 
 public class BusinessRule   {
   @JsonProperty("id")
@@ -29,11 +29,11 @@ public class BusinessRule   {
   @JsonProperty("tenantKey")
   private String tenantKey = null;
 
-  @JsonProperty("rowContent")
-  private String rowContent = null;
+  @JsonProperty("ruleContent")
+  private String ruleContent = null;
 
   @JsonProperty("compiledContent")
-  private String compiledContent = null;
+  private byte[] compiledContent = null;
 
   public BusinessRule id(Integer id) {
     this.id = id;
@@ -115,27 +115,27 @@ public class BusinessRule   {
     this.tenantKey = tenantKey;
   }
 
-  public BusinessRule rowContent(String rowContent) {
-    this.rowContent = rowContent;
+  public BusinessRule ruleContent(String ruleContent) {
+    this.ruleContent = ruleContent;
     return this;
   }
 
   /**
    * Taken from the latest version of this business rule received from Console.
-   * @return rowContent
+   * @return ruleContent
   **/
   @ApiModelProperty(value = "Taken from the latest version of this business rule received from Console.")
 
 
-  public String getRowContent() {
-    return rowContent;
+  public String getRuleContent() {
+    return ruleContent;
   }
 
-  public void setRowContent(String rowContent) {
-    this.rowContent = rowContent;
+  public void setRuleContent(String ruleContent) {
+    this.ruleContent = ruleContent;
   }
 
-  public BusinessRule compiledContent(String compiledContent) {
+  public BusinessRule compiledContent(byte[] compiledContent) {
     this.compiledContent = compiledContent;
     return this;
   }
@@ -146,12 +146,12 @@ public class BusinessRule   {
   **/
   @ApiModelProperty(value = "Java content compiled from the rule content. Suppose each rule only generates one java file.")
 
-
-  public String getCompiledContent() {
+@Pattern(regexp="^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$") 
+  public byte[] getCompiledContent() {
     return compiledContent;
   }
 
-  public void setCompiledContent(String compiledContent) {
+  public void setCompiledContent(byte[] compiledContent) {
     this.compiledContent = compiledContent;
   }
 
@@ -169,13 +169,13 @@ public class BusinessRule   {
         Objects.equals(this.ruleDefinitionId, businessRule.ruleDefinitionId) &&
         Objects.equals(this.ruleName, businessRule.ruleName) &&
         Objects.equals(this.tenantKey, businessRule.tenantKey) &&
-        Objects.equals(this.rowContent, businessRule.rowContent) &&
+        Objects.equals(this.ruleContent, businessRule.ruleContent) &&
         Objects.equals(this.compiledContent, businessRule.compiledContent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, ruleDefinitionId, ruleName, tenantKey, rowContent, compiledContent);
+    return Objects.hash(id, ruleDefinitionId, ruleName, tenantKey, ruleContent, compiledContent);
   }
 
   @Override
@@ -187,7 +187,7 @@ public class BusinessRule   {
     sb.append("    ruleDefinitionId: ").append(toIndentedString(ruleDefinitionId)).append("\n");
     sb.append("    ruleName: ").append(toIndentedString(ruleName)).append("\n");
     sb.append("    tenantKey: ").append(toIndentedString(tenantKey)).append("\n");
-    sb.append("    rowContent: ").append(toIndentedString(rowContent)).append("\n");
+    sb.append("    ruleContent: ").append(toIndentedString(ruleContent)).append("\n");
     sb.append("    compiledContent: ").append(toIndentedString(compiledContent)).append("\n");
     sb.append("}");
     return sb.toString();

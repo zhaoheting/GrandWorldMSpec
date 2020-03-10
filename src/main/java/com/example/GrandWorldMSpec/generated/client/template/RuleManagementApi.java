@@ -2,9 +2,11 @@ package com.example.GrandWorldMSpec.generated.client.template;
 
 import com.example.GrandWorldMSpec.generated.client.ApiClient;
 
-import com.example.GrandWorldMSpec.generated.model.BusinessRuleLoadResponse;
-import com.example.GrandWorldMSpec.generated.model.SubscriberReport;
-import com.example.GrandWorldMSpec.generated.model.TableRuleLoadResponse;
+import com.example.GrandWorldMSpec.generated.model.BusinessRuleResponse;
+import com.example.GrandWorldMSpec.generated.model.ErrorModel;
+import com.example.GrandWorldMSpec.generated.model.SubscriptionRequest;
+import com.example.GrandWorldMSpec.generated.model.SubscriptionResponse;
+import com.example.GrandWorldMSpec.generated.model.TableRuleResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,23 +50,26 @@ public class RuleManagementApi {
     }
 
     /**
-     * Load business rule from SDK.
+     * 
      * Load business rule from SDK.
      * <p><b>200</b> - successful operation
-     * <p><b>400</b> - Invalid status value
-     * @param ruleGroupName The name of table rule&#39;s bundle or business rule&#39;s ruleset.
+     * <p><b>400</b> - The request was invalid
+     * <p><b>401</b> - User not authorised to access this resource
+     * <p><b>404</b> - The search results set does not exist.
+     * <p><b>500</b> - An unexpected error occurred
+     * @param ruleSetName The name of business rule&#39;s ruleset.
      * @param ruleName The name of a table rule or business rule.
-     * @param tenantId Code of the tenant.
+     * @param tenantKey Code of the tenant.
      * @param version Rule version.
-     * @return BusinessRuleLoadResponse
+     * @return BusinessRuleResponse
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public BusinessRuleLoadResponse getBusinessRule(String ruleGroupName, String ruleName, String tenantId, String version) throws RestClientException {
+    public BusinessRuleResponse getBusinessRule(String ruleSetName, String ruleName, String tenantKey, String version) throws RestClientException {
         Object postBody = null;
         
-        // verify the required parameter 'ruleGroupName' is set
-        if (ruleGroupName == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'ruleGroupName' when calling getBusinessRule");
+        // verify the required parameter 'ruleSetName' is set
+        if (ruleSetName == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'ruleSetName' when calling getBusinessRule");
         }
         
         // verify the required parameter 'ruleName' is set
@@ -72,9 +77,9 @@ public class RuleManagementApi {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'ruleName' when calling getBusinessRule");
         }
         
-        // verify the required parameter 'tenantId' is set
-        if (tenantId == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'tenantId' when calling getBusinessRule");
+        // verify the required parameter 'tenantKey' is set
+        if (tenantKey == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'tenantKey' when calling getBusinessRule");
         }
         
         // verify the required parameter 'version' is set
@@ -84,46 +89,49 @@ public class RuleManagementApi {
         
         // create path and map variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("ruleGroupName", ruleGroupName);
+        uriVariables.put("ruleSetName", ruleSetName);
         uriVariables.put("ruleName", ruleName);
-        uriVariables.put("tenantId", tenantId);
+        uriVariables.put("tenantKey", tenantKey);
         uriVariables.put("version", version);
-        String path = UriComponentsBuilder.fromPath("/businessRule").buildAndExpand(uriVariables).toUriString();
+        String path = UriComponentsBuilder.fromPath("/ruleBusiness").buildAndExpand(uriVariables).toUriString();
         
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
         final HttpHeaders headerParams = new HttpHeaders();
         final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-        final String[] accepts = { };
+        final String[] accepts = { 
+            "application/json"
+        };
         final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
         final String[] contentTypes = { };
         final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
 
         String[] authNames = new String[] {  };
 
-        ParameterizedTypeReference<BusinessRuleLoadResponse> returnType = new ParameterizedTypeReference<BusinessRuleLoadResponse>() {};
+        ParameterizedTypeReference<BusinessRuleResponse> returnType = new ParameterizedTypeReference<BusinessRuleResponse>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
+     * 
      * Load table rule from SDK.
-     * Load table rule from SDK.
-     * <p><b>200</b> - successful operation
-     * <p><b>400</b> - Invalid status value
-     * @param ruleGroupName The name of table rule&#39;s bundle or business rule&#39;s ruleset.
+     * <p><b>200</b> - successful operation.
+     * <p><b>400</b> - The request was invalid
+     * <p><b>401</b> - User not authorised to access this resource
+     * <p><b>404</b> - The search results set does not exist.
+     * <p><b>500</b> - An unexpected error occurred
+     * @param bundleName The name of table rule&#39;s bundle.
      * @param ruleName The name of a table rule or business rule.
-     * @param tenantId Code of the tenant.
+     * @param tenantKey Code of the tenant.
      * @param version Rule version.
-     * @param page The page parameter
-     * @param pageSize The pageSize parameter
-     * @return TableRuleLoadResponse
+     * @return TableRuleResponse
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public TableRuleLoadResponse getTableRule(String ruleGroupName, String ruleName, String tenantId, String version, Integer page, Integer pageSize) throws RestClientException {
+    public TableRuleResponse getTableRule(String bundleName, String ruleName, String tenantKey, String version) throws RestClientException {
         Object postBody = null;
         
-        // verify the required parameter 'ruleGroupName' is set
-        if (ruleGroupName == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'ruleGroupName' when calling getTableRule");
+        // verify the required parameter 'bundleName' is set
+        if (bundleName == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'bundleName' when calling getTableRule");
         }
         
         // verify the required parameter 'ruleName' is set
@@ -131,9 +139,9 @@ public class RuleManagementApi {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'ruleName' when calling getTableRule");
         }
         
-        // verify the required parameter 'tenantId' is set
-        if (tenantId == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'tenantId' when calling getTableRule");
+        // verify the required parameter 'tenantKey' is set
+        if (tenantKey == null) {
+            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'tenantKey' when calling getTableRule");
         }
         
         // verify the required parameter 'version' is set
@@ -141,50 +149,43 @@ public class RuleManagementApi {
             throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'version' when calling getTableRule");
         }
         
-        // verify the required parameter 'page' is set
-        if (page == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'page' when calling getTableRule");
-        }
-        
-        // verify the required parameter 'pageSize' is set
-        if (pageSize == null) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "Missing the required parameter 'pageSize' when calling getTableRule");
-        }
-        
         // create path and map variables
         final Map<String, Object> uriVariables = new HashMap<String, Object>();
-        uriVariables.put("ruleGroupName", ruleGroupName);
+        uriVariables.put("bundleName", bundleName);
         uriVariables.put("ruleName", ruleName);
-        uriVariables.put("tenantId", tenantId);
+        uriVariables.put("tenantKey", tenantKey);
         uriVariables.put("version", version);
-        uriVariables.put("page", page);
-        uriVariables.put("pageSize", pageSize);
-        String path = UriComponentsBuilder.fromPath("/tableRule").buildAndExpand(uriVariables).toUriString();
+        String path = UriComponentsBuilder.fromPath("/ruleTable").buildAndExpand(uriVariables).toUriString();
         
         final MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<String, String>();
         final HttpHeaders headerParams = new HttpHeaders();
         final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-        final String[] accepts = { };
+        final String[] accepts = { 
+            "application/json"
+        };
         final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
         final String[] contentTypes = { };
         final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
 
         String[] authNames = new String[] {  };
 
-        ParameterizedTypeReference<TableRuleLoadResponse> returnType = new ParameterizedTypeReference<TableRuleLoadResponse>() {};
+        ParameterizedTypeReference<TableRuleResponse> returnType = new ParameterizedTypeReference<TableRuleResponse>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**
-     * rule subscription
+     * 
      * rule subscription
      * <p><b>200</b> - successful operation
-     * <p><b>400</b> - Invalid status value
+     * <p><b>400</b> - The request was invalid
+     * <p><b>401</b> - User not authorised to access this resource
+     * <p><b>404</b> - The search results set does not exist.
+     * <p><b>500</b> - An unexpected error occurred
      * @param subscriberReport uuid that rule engine service generated, null if this is the first time.
-     * @return SubscriberReport
+     * @return SubscriptionResponse
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public SubscriberReport ruleSubscribe(SubscriberReport subscriberReport) throws RestClientException {
+    public SubscriptionResponse subscribeRules(SubscriptionRequest subscriberReport) throws RestClientException {
         Object postBody = subscriberReport;
         
         String path = UriComponentsBuilder.fromPath("/ruleSubscription").build().toUriString();
@@ -193,14 +194,16 @@ public class RuleManagementApi {
         final HttpHeaders headerParams = new HttpHeaders();
         final MultiValueMap<String, Object> formParams = new LinkedMultiValueMap<String, Object>();
 
-        final String[] accepts = { };
+        final String[] accepts = { 
+            "application/json"
+        };
         final List<MediaType> accept = apiClient.selectHeaderAccept(accepts);
         final String[] contentTypes = { };
         final MediaType contentType = apiClient.selectHeaderContentType(contentTypes);
 
         String[] authNames = new String[] {  };
 
-        ParameterizedTypeReference<SubscriberReport> returnType = new ParameterizedTypeReference<SubscriberReport>() {};
+        ParameterizedTypeReference<SubscriptionResponse> returnType = new ParameterizedTypeReference<SubscriptionResponse>() {};
         return apiClient.invokeAPI(path, HttpMethod.POST, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
 }

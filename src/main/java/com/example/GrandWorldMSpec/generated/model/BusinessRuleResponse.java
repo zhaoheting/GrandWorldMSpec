@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -15,16 +17,17 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "Response model of load business rule interface.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-07T20:48:33.284+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T15:19:04.437+08:00")
 
-public class BusinessRuleLoadResponse   {
+public class BusinessRuleResponse   {
   @JsonProperty("definition")
   private BusinessRuleSetDefinition definition = null;
 
-  @JsonProperty("content")
-  private byte[] content = null;
+  @JsonProperty("contentList")
+  @Valid
+  private List<byte[]> contentList = null;
 
-  public BusinessRuleLoadResponse definition(BusinessRuleSetDefinition definition) {
+  public BusinessRuleResponse definition(BusinessRuleSetDefinition definition) {
     this.definition = definition;
     return this;
   }
@@ -45,24 +48,32 @@ public class BusinessRuleLoadResponse   {
     this.definition = definition;
   }
 
-  public BusinessRuleLoadResponse content(byte[] content) {
-    this.content = content;
+  public BusinessRuleResponse contentList(List<byte[]> contentList) {
+    this.contentList = contentList;
+    return this;
+  }
+
+  public BusinessRuleResponse addContentListItem(byte[] contentListItem) {
+    if (this.contentList == null) {
+      this.contentList = new ArrayList<>();
+    }
+    this.contentList.add(contentListItem);
     return this;
   }
 
   /**
-   * The content of the business rule in byte array.
-   * @return content
+   * Get contentList
+   * @return contentList
   **/
-  @ApiModelProperty(value = "The content of the business rule in byte array.")
+  @ApiModelProperty(value = "")
 
-@Pattern(regexp="^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$") 
-  public byte[] getContent() {
-    return content;
+
+  public List<byte[]> getContentList() {
+    return contentList;
   }
 
-  public void setContent(byte[] content) {
-    this.content = content;
+  public void setContentList(List<byte[]> contentList) {
+    this.contentList = contentList;
   }
 
 
@@ -74,23 +85,23 @@ public class BusinessRuleLoadResponse   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    BusinessRuleLoadResponse businessRuleLoadResponse = (BusinessRuleLoadResponse) o;
-    return Objects.equals(this.definition, businessRuleLoadResponse.definition) &&
-        Objects.equals(this.content, businessRuleLoadResponse.content);
+    BusinessRuleResponse businessRuleResponse = (BusinessRuleResponse) o;
+    return Objects.equals(this.definition, businessRuleResponse.definition) &&
+        Objects.equals(this.contentList, businessRuleResponse.contentList);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(definition, content);
+    return Objects.hash(definition, contentList);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class BusinessRuleLoadResponse {\n");
+    sb.append("class BusinessRuleResponse {\n");
     
     sb.append("    definition: ").append(toIndentedString(definition)).append("\n");
-    sb.append("    content: ").append(toIndentedString(content)).append("\n");
+    sb.append("    contentList: ").append(toIndentedString(contentList)).append("\n");
     sb.append("}");
     return sb.toString();
   }

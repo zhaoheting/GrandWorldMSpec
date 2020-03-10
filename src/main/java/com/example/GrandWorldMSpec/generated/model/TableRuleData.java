@@ -10,11 +10,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * One row of table rule.
+ * Data of table rule.
  */
-@ApiModel(description = "One row of table rule.")
+@ApiModel(description = "Data of table rule.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-07T20:48:33.284+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T15:19:04.437+08:00")
 
 public class TableRuleData   {
   @JsonProperty("id")
@@ -23,14 +23,17 @@ public class TableRuleData   {
   @JsonProperty("ruleDefinitionId")
   private Integer ruleDefinitionId = null;
 
-  @JsonProperty("rowContent")
-  private String rowContent = null;
+  @JsonProperty("ruleContent")
+  private String ruleContent = null;
 
   @JsonProperty("tenantKey")
   private String tenantKey = null;
 
-  @JsonProperty("rowId")
-  private Integer rowId = null;
+  @JsonProperty("language")
+  private String language = null;
+
+  @JsonProperty("market")
+  private String market = null;
 
   public TableRuleData id(Integer id) {
     this.id = id;
@@ -72,24 +75,24 @@ public class TableRuleData   {
     this.ruleDefinitionId = ruleDefinitionId;
   }
 
-  public TableRuleData rowContent(String rowContent) {
-    this.rowContent = rowContent;
+  public TableRuleData ruleContent(String ruleContent) {
+    this.ruleContent = ruleContent;
     return this;
   }
 
   /**
-   * XML Clob with each row content
-   * @return rowContent
+   * XML Clob of rule content.
+   * @return ruleContent
   **/
-  @ApiModelProperty(value = "XML Clob with each row content")
+  @ApiModelProperty(value = "XML Clob of rule content.")
 
 
-  public String getRowContent() {
-    return rowContent;
+  public String getRuleContent() {
+    return ruleContent;
   }
 
-  public void setRowContent(String rowContent) {
-    this.rowContent = rowContent;
+  public void setRuleContent(String ruleContent) {
+    this.ruleContent = ruleContent;
   }
 
   public TableRuleData tenantKey(String tenantKey) {
@@ -112,24 +115,44 @@ public class TableRuleData   {
     this.tenantKey = tenantKey;
   }
 
-  public TableRuleData rowId(Integer rowId) {
-    this.rowId = rowId;
+  public TableRuleData language(String language) {
+    this.language = language;
     return this;
   }
 
   /**
-   * Integer ID of each row, defines the order of each row.
-   * @return rowId
+   * Get language
+   * @return language
   **/
-  @ApiModelProperty(value = "Integer ID of each row, defines the order of each row.")
+  @ApiModelProperty(value = "")
 
 
-  public Integer getRowId() {
-    return rowId;
+  public String getLanguage() {
+    return language;
   }
 
-  public void setRowId(Integer rowId) {
-    this.rowId = rowId;
+  public void setLanguage(String language) {
+    this.language = language;
+  }
+
+  public TableRuleData market(String market) {
+    this.market = market;
+    return this;
+  }
+
+  /**
+   * Get market
+   * @return market
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public String getMarket() {
+    return market;
+  }
+
+  public void setMarket(String market) {
+    this.market = market;
   }
 
 
@@ -144,14 +167,15 @@ public class TableRuleData   {
     TableRuleData tableRuleData = (TableRuleData) o;
     return Objects.equals(this.id, tableRuleData.id) &&
         Objects.equals(this.ruleDefinitionId, tableRuleData.ruleDefinitionId) &&
-        Objects.equals(this.rowContent, tableRuleData.rowContent) &&
+        Objects.equals(this.ruleContent, tableRuleData.ruleContent) &&
         Objects.equals(this.tenantKey, tableRuleData.tenantKey) &&
-        Objects.equals(this.rowId, tableRuleData.rowId);
+        Objects.equals(this.language, tableRuleData.language) &&
+        Objects.equals(this.market, tableRuleData.market);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, ruleDefinitionId, rowContent, tenantKey, rowId);
+    return Objects.hash(id, ruleDefinitionId, ruleContent, tenantKey, language, market);
   }
 
   @Override
@@ -161,9 +185,10 @@ public class TableRuleData   {
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    ruleDefinitionId: ").append(toIndentedString(ruleDefinitionId)).append("\n");
-    sb.append("    rowContent: ").append(toIndentedString(rowContent)).append("\n");
+    sb.append("    ruleContent: ").append(toIndentedString(ruleContent)).append("\n");
     sb.append("    tenantKey: ").append(toIndentedString(tenantKey)).append("\n");
-    sb.append("    rowId: ").append(toIndentedString(rowId)).append("\n");
+    sb.append("    language: ").append(toIndentedString(language)).append("\n");
+    sb.append("    market: ").append(toIndentedString(market)).append("\n");
     sb.append("}");
     return sb.toString();
   }

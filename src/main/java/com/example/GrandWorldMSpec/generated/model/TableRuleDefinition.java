@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.LocalDate;
 import org.springframework.validation.annotation.Validated;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
@@ -16,7 +15,7 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "Table rule definition entity.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-07T20:48:33.284+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T15:19:04.437+08:00")
 
 public class TableRuleDefinition   {
   @JsonProperty("id")
@@ -35,7 +34,7 @@ public class TableRuleDefinition   {
   private String definitionContent = null;
 
   @JsonProperty("lastUpdated")
-  private LocalDate lastUpdated = null;
+  private String lastUpdated = null;
 
   /**
    * Gets or Sets status
@@ -74,7 +73,7 @@ public class TableRuleDefinition   {
   private StatusEnum status = null;
 
   @JsonProperty("auditId")
-  private Long auditId = null;
+  private Integer auditId = null;
 
   public TableRuleDefinition id(String id) {
     this.id = id;
@@ -176,7 +175,7 @@ public class TableRuleDefinition   {
     this.definitionContent = definitionContent;
   }
 
-  public TableRuleDefinition lastUpdated(LocalDate lastUpdated) {
+  public TableRuleDefinition lastUpdated(String lastUpdated) {
     this.lastUpdated = lastUpdated;
     return this;
   }
@@ -187,13 +186,12 @@ public class TableRuleDefinition   {
   **/
   @ApiModelProperty(value = "Timestamp when it’s last updated")
 
-  @Valid
 
-  public LocalDate getLastUpdated() {
+  public String getLastUpdated() {
     return lastUpdated;
   }
 
-  public void setLastUpdated(LocalDate lastUpdated) {
+  public void setLastUpdated(String lastUpdated) {
     this.lastUpdated = lastUpdated;
   }
 
@@ -217,7 +215,7 @@ public class TableRuleDefinition   {
     this.status = status;
   }
 
-  public TableRuleDefinition auditId(Long auditId) {
+  public TableRuleDefinition auditId(Integer auditId) {
     this.auditId = auditId;
     return this;
   }
@@ -229,11 +227,11 @@ public class TableRuleDefinition   {
   @ApiModelProperty(value = "Foreign key references to the audit table.")
 
 
-  public Long getAuditId() {
+  public Integer getAuditId() {
     return auditId;
   }
 
-  public void setAuditId(Long auditId) {
+  public void setAuditId(Integer auditId) {
     this.auditId = auditId;
   }
 
