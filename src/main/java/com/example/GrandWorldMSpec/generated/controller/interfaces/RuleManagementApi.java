@@ -32,7 +32,7 @@ import javax.validation.constraints.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T15:19:04.437+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T16:17:50.323+08:00")
 
 @Api(value = "RuleManagement", description = "the RuleManagement API")
 public interface RuleManagementApi {
@@ -53,15 +53,15 @@ public interface RuleManagementApi {
 
     @ApiOperation(value = "", nickname = "getBusinessRule", notes = "Load business rule from SDK.", response = BusinessRuleResponse.class, tags={ "rule management", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "successful operation", response = BusinessRuleResponse.class),
+        @ApiResponse(code = 200, message = "Successful response of loading business rule from SDK.", response = BusinessRuleResponse.class),
         @ApiResponse(code = 400, message = "The request was invalid", response = ErrorModel.class),
         @ApiResponse(code = 401, message = "User not authorised to access this resource", response = ErrorModel.class),
-        @ApiResponse(code = 404, message = "The search results set does not exist.", response = ErrorModel.class),
+        @ApiResponse(code = 404, message = "The search results do not exist.", response = ErrorModel.class),
         @ApiResponse(code = 500, message = "An unexpected error occurred", response = ErrorModel.class) })
     @RequestMapping(value = "/ruleBusiness",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<BusinessRuleResponse> getBusinessRule(@ApiParam(value = "The name of business rule's ruleset.",required=true) @PathVariable("ruleSetName") String ruleSetName,@ApiParam(value = "The name of a table rule or business rule.",required=true) @PathVariable("ruleName") String ruleName,@ApiParam(value = "Code of the tenant.",required=true) @PathVariable("tenantKey") String tenantKey,@ApiParam(value = "Rule version.",required=true) @PathVariable("version") String version) {
+    default ResponseEntity<BusinessRuleResponse> getBusinessRule(@NotNull @ApiParam(value = "The name of business rule's ruleset.", required = true) @Valid @RequestParam(value = "ruleSetName", required = true) String ruleSetName,@NotNull @ApiParam(value = "The name of a table rule or business rule.", required = true) @Valid @RequestParam(value = "ruleName", required = true) String ruleName,@ApiParam(value = "Code of the tenant.") @Valid @RequestParam(value = "tenantKey", required = false) String tenantKey,@ApiParam(value = "Rule version.") @Valid @RequestParam(value = "version", required = false) String version) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -80,15 +80,15 @@ public interface RuleManagementApi {
 
     @ApiOperation(value = "", nickname = "getTableRule", notes = "Load table rule from SDK.", response = TableRuleResponse.class, tags={ "rule management", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "successful operation.", response = TableRuleResponse.class),
+        @ApiResponse(code = 200, message = "Successful response of loading table rule from SDK", response = TableRuleResponse.class),
         @ApiResponse(code = 400, message = "The request was invalid", response = ErrorModel.class),
         @ApiResponse(code = 401, message = "User not authorised to access this resource", response = ErrorModel.class),
-        @ApiResponse(code = 404, message = "The search results set does not exist.", response = ErrorModel.class),
+        @ApiResponse(code = 404, message = "The search results do not exist.", response = ErrorModel.class),
         @ApiResponse(code = 500, message = "An unexpected error occurred", response = ErrorModel.class) })
     @RequestMapping(value = "/ruleTable",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<TableRuleResponse> getTableRule(@ApiParam(value = "The name of table rule's bundle.",required=true) @PathVariable("bundleName") String bundleName,@ApiParam(value = "The name of a table rule or business rule.",required=true) @PathVariable("ruleName") String ruleName,@ApiParam(value = "Code of the tenant.",required=true) @PathVariable("tenantKey") String tenantKey,@ApiParam(value = "Rule version.",required=true) @PathVariable("version") String version) {
+    default ResponseEntity<TableRuleResponse> getTableRule(@NotNull @ApiParam(value = "The name of table rule's bundle.", required = true) @Valid @RequestParam(value = "bundleName", required = true) String bundleName,@NotNull @ApiParam(value = "The name of a table rule or business rule.", required = true) @Valid @RequestParam(value = "ruleName", required = true) String ruleName,@ApiParam(value = "Code of the tenant.") @Valid @RequestParam(value = "tenantKey", required = false) String tenantKey,@ApiParam(value = "Rule version.") @Valid @RequestParam(value = "version", required = false) String version) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -105,17 +105,17 @@ public interface RuleManagementApi {
     }
 
 
-    @ApiOperation(value = "", nickname = "subscribeRules", notes = "rule subscription", response = SubscriptionResponse.class, tags={ "rule management", })
+    @ApiOperation(value = "", nickname = "subscribeRules", notes = "Rule engine subscriber report.", response = SubscriptionResponse.class, tags={ "rule management", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "successful operation", response = SubscriptionResponse.class),
+        @ApiResponse(code = 200, message = "successful response of rule engine subscriber report.", response = SubscriptionResponse.class),
         @ApiResponse(code = 400, message = "The request was invalid", response = ErrorModel.class),
         @ApiResponse(code = 401, message = "User not authorised to access this resource", response = ErrorModel.class),
-        @ApiResponse(code = 404, message = "The search results set does not exist.", response = ErrorModel.class),
+        @ApiResponse(code = 404, message = "The search results do not exist.", response = ErrorModel.class),
         @ApiResponse(code = 500, message = "An unexpected error occurred", response = ErrorModel.class) })
     @RequestMapping(value = "/ruleSubscription",
         produces = { "application/json" }, 
         method = RequestMethod.POST)
-    default ResponseEntity<SubscriptionResponse> subscribeRules(@ApiParam(value = "uuid that rule engine service generated, null if this is the first time."  )  @Valid @RequestBody SubscriptionRequest subscriberReport) {
+    default ResponseEntity<SubscriptionResponse> subscribeRules(@ApiParam(value = "Rule engine subscriber report reuqest."  )  @Valid @RequestBody SubscriptionRequest subscriberRequest) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {

@@ -13,11 +13,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Read from subscriber’s own properties.
+ * A subscription info entity read from subscriber’s own properties.
  */
-@ApiModel(description = "Read from subscriber’s own properties.")
+@ApiModel(description = "A subscription info entity read from subscriber’s own properties.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T15:19:04.437+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T16:17:50.323+08:00")
 
 public class SubscriptionInfo   {
   @JsonProperty("tableRules")
@@ -71,10 +71,10 @@ public class SubscriptionInfo   {
   }
 
   /**
-   * Group list of table rule business rule.
+   * Group list of business rule.
    * @return businessRules
   **/
-  @ApiModelProperty(value = "Group list of table rule business rule.")
+  @ApiModelProperty(value = "Group list of business rule.")
 
   @Valid
 

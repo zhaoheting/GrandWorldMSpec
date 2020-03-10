@@ -147,7 +147,16 @@ definitions:
   subscriptionRequest:
     description: The request of subscriber report.
     type: object
+    required:
+      - name
+      - ipAddress
+      - subscriptionInfo
     properties:
+      key:
+        type: string
+        description: >-
+          UUID that rule engine service generated, null if this is the first
+          time.
       name:
         type: string
         description: 'Subscriber service name, read from subscriber’s own properties.'
@@ -352,33 +361,31 @@ definitions:
 parameters:
   bundleName:
     name: bundleName
-    in: path
+    in: query
     type: string
     required: true
     description: The name of table rule's bundle.
   ruleSetName:
     name: ruleSetName
-    in: path
+    in: query
     type: string
     required: true
     description: The name of business rule's ruleset.
   ruleName:
     name: ruleName
-    in: path
+    in: query
     type: string
     required: true
     description: The name of a table rule or business rule.
   tenantKey:
     name: tenantKey
-    in: path
+    in: query
     type: string
-    required: true
     description: Code of the tenant.
   version:
     name: version
-    in: path
+    in: query
     type: string
-    required: true
     description: Rule version.
 responses:
   unexpectedError:

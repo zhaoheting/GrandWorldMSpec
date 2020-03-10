@@ -10,11 +10,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Data of table rule.
+ * Table rule entity.
  */
-@ApiModel(description = "Data of table rule.")
+@ApiModel(description = "Table rule entity.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T15:19:04.437+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T16:17:50.323+08:00")
 
 public class TableRuleData   {
   @JsonProperty("id")

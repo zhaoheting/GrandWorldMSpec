@@ -11,13 +11,16 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * The data model of subscriber report.
+ * The request of subscriber report.
  */
-@ApiModel(description = "The data model of subscriber report.")
+@ApiModel(description = "The request of subscriber report.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T15:19:04.437+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T16:17:50.323+08:00")
 
 public class SubscriptionRequest   {
+  @JsonProperty("key")
+  private String key = null;
+
   @JsonProperty("name")
   private String name = null;
 
@@ -33,6 +36,26 @@ public class SubscriptionRequest   {
   @JsonProperty("subscriptionInfo")
   private SubscriptionInfo subscriptionInfo = null;
 
+  public SubscriptionRequest key(String key) {
+    this.key = key;
+    return this;
+  }
+
+  /**
+   * UUID that rule engine service generated, null if this is the first time.
+   * @return key
+  **/
+  @ApiModelProperty(value = "UUID that rule engine service generated, null if this is the first time.")
+
+
+  public String getKey() {
+    return key;
+  }
+
+  public void setKey(String key) {
+    this.key = key;
+  }
+
   public SubscriptionRequest name(String name) {
     this.name = name;
     return this;
@@ -42,7 +65,8 @@ public class SubscriptionRequest   {
    * Subscriber service name, read from subscriber’s own properties.
    * @return name
   **/
-  @ApiModelProperty(value = "Subscriber service name, read from subscriber’s own properties.")
+  @ApiModelProperty(required = true, value = "Subscriber service name, read from subscriber’s own properties.")
+  @NotNull
 
 
   public String getName() {
@@ -62,7 +86,8 @@ public class SubscriptionRequest   {
    * Subscriber’s IP address.
    * @return ipAddress
   **/
-  @ApiModelProperty(value = "Subscriber’s IP address.")
+  @ApiModelProperty(required = true, value = "Subscriber’s IP address.")
+  @NotNull
 
 @Pattern(regexp="\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}") 
   public String getIpAddress() {
@@ -119,10 +144,11 @@ public class SubscriptionRequest   {
   }
 
   /**
-   * A subscription info entity.
+   * Get subscriptionInfo
    * @return subscriptionInfo
   **/
-  @ApiModelProperty(value = "A subscription info entity.")
+  @ApiModelProperty(required = true, value = "")
+  @NotNull
 
   @Valid
 
@@ -144,7 +170,8 @@ public class SubscriptionRequest   {
       return false;
     }
     SubscriptionRequest subscriptionRequest = (SubscriptionRequest) o;
-    return Objects.equals(this.name, subscriptionRequest.name) &&
+    return Objects.equals(this.key, subscriptionRequest.key) &&
+        Objects.equals(this.name, subscriptionRequest.name) &&
         Objects.equals(this.ipAddress, subscriptionRequest.ipAddress) &&
         Objects.equals(this.lastUpdated, subscriptionRequest.lastUpdated) &&
         Objects.equals(this.metadata, subscriptionRequest.metadata) &&
@@ -153,7 +180,7 @@ public class SubscriptionRequest   {
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, ipAddress, lastUpdated, metadata, subscriptionInfo);
+    return Objects.hash(key, name, ipAddress, lastUpdated, metadata, subscriptionInfo);
   }
 
   @Override
@@ -161,6 +188,7 @@ public class SubscriptionRequest   {
     StringBuilder sb = new StringBuilder();
     sb.append("class SubscriptionRequest {\n");
     
+    sb.append("    key: ").append(toIndentedString(key)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    ipAddress: ").append(toIndentedString(ipAddress)).append("\n");
     sb.append("    lastUpdated: ").append(toIndentedString(lastUpdated)).append("\n");

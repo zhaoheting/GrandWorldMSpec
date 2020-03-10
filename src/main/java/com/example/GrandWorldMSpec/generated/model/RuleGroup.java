@@ -17,7 +17,7 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "Rule group entity of table rule or business rule.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T15:19:04.437+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T16:17:50.323+08:00")
 
 public class RuleGroup   {
   @JsonProperty("ruleGroupName")
@@ -36,10 +36,10 @@ public class RuleGroup   {
   }
 
   /**
-   * The name of table rule's bundle or business rule's ruleset.
+   * The name indicates table rule's bundle or business rule's ruleset.
    * @return ruleGroupName
   **/
-  @ApiModelProperty(value = "The name of table rule's bundle or business rule's ruleset.")
+  @ApiModelProperty(value = "The name indicates table rule's bundle or business rule's ruleset.")
 
 
   public String getRuleGroupName() {

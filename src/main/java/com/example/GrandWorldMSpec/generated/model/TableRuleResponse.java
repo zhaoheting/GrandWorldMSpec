@@ -12,11 +12,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Response model of load table rule interface.
+ * Response of loading table rule.
  */
-@ApiModel(description = "Response model of load table rule interface.")
+@ApiModel(description = "Response of loading table rule.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T15:19:04.437+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T16:17:50.323+08:00")
 
 public class TableRuleResponse   {
   @JsonProperty("definition")
@@ -52,10 +52,10 @@ public class TableRuleResponse   {
   }
 
   /**
-   * Data of the table rule.
+   * Get data
    * @return data
   **/
-  @ApiModelProperty(value = "Data of the table rule.")
+  @ApiModelProperty(value = "")
 
   @Valid
 

@@ -13,11 +13,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Response model of load business rule interface.
+ * Response of loading business rule.
  */
-@ApiModel(description = "Response model of load business rule interface.")
+@ApiModel(description = "Response of loading business rule.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T15:19:04.437+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T16:17:50.323+08:00")
 
 public class BusinessRuleResponse   {
   @JsonProperty("definition")

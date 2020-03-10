@@ -11,11 +11,11 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * The data model of subscriber report.
+ * The response of subscriber report.
  */
-@ApiModel(description = "The data model of subscriber report.")
+@ApiModel(description = "The response of subscriber report.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T15:19:04.437+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T16:17:50.323+08:00")
 
 public class SubscriptionResponse   {
   @JsonProperty("key")
@@ -73,10 +73,10 @@ public class SubscriptionResponse   {
   }
 
   /**
-   * A subscription info entity.
+   * Get subscriptionInfo
    * @return subscriptionInfo
   **/
-  @ApiModelProperty(value = "A subscription info entity.")
+  @ApiModelProperty(value = "")
 
   @Valid
 

@@ -14,7 +14,7 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "Rule summary info of both table rule and business rule.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T15:19:04.437+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T16:17:50.323+08:00")
 
 public class RuleSummary   {
   @JsonProperty("name")
@@ -52,10 +52,10 @@ public class RuleSummary   {
   }
 
   /**
-   * Last report time of the name.
+   * Last report time of the rule.
    * @return lastUpdated
   **/
-  @ApiModelProperty(value = "Last report time of the name.")
+  @ApiModelProperty(value = "Last report time of the rule.")
 
 
   public String getLastUpdated() {
