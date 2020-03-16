@@ -1,11 +1,11 @@
 swagger: '2.0'
 info:
-  description: the description of apiinfo.
+  description: Api info of rule engine service.
   version: 1.0.0
   title: Rule Engine Service.
   contact:
-    name: openjaw team
-    email: heting.zhao@www.com
+    name: Dragon Fire Team
+    email: team_dragonfire@www.com
 host: 'localhost:8080'
 basePath: /
 schemes:
@@ -19,7 +19,7 @@ tags:
   - name: rule management
     description: Interfaces for rule management.
 paths:
-  /ruleSubscription:
+  /res/ruleSubscription:
     post:
       tags:
         - rule management
@@ -27,14 +27,21 @@ paths:
       consumes: []
       operationId: subscribeRules
       parameters:
+        - $ref: '#/parameters/localeHeader'
+        - $ref: '#/parameters/deviceId'
+        - $ref: '#/parameters/channelHeader'
+        - $ref: '#/parameters/marketCountryCode'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/userTokenHeader'
+        - $ref: '#/parameters/userTokenHeaderRequired'
+        - $ref: '#/parameters/multivariateTestToken'
         - name: subscriberRequest
           in: body
-          description: Rule engine subscriber report reuqest.
           schema:
             $ref: '#/definitions/subscriptionRequest'
       responses:
         '200':
-          description: successful response of rule engine subscriber report.
+          description: Successful response of rule engine subscriber report.
           schema:
             $ref: '#/definitions/subscriptionResponse'
         '400':
@@ -47,14 +54,22 @@ paths:
             $ref: '#/definitions/errorModel'
         '500':
           $ref: '#/responses/unexpectedError'
-  /ruleTable:
+  /res/ruleTable:
     get:
       tags:
         - rule management
       operationId: getTableRule
-      description: Load table rule from SDK.
+      description: Load table rule.
       consumes: []
       parameters:
+        - $ref: '#/parameters/localeHeader'
+        - $ref: '#/parameters/deviceId'
+        - $ref: '#/parameters/channelHeader'
+        - $ref: '#/parameters/marketCountryCode'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/userTokenHeader'
+        - $ref: '#/parameters/userTokenHeaderRequired'
+        - $ref: '#/parameters/multivariateTestToken'
         - $ref: '#/parameters/bundleName'
         - $ref: '#/parameters/ruleName'
         - $ref: '#/parameters/tenantKey'
@@ -63,7 +78,7 @@ paths:
         - $ref: '#/parameters/pageSize'
       responses:
         '200':
-          description: Successful response of loading table rule from SDK
+          description: Successful response of loading table rule.
           schema:
             $ref: '#/definitions/tableRuleResponse'
         '400':
@@ -76,21 +91,29 @@ paths:
             $ref: '#/definitions/errorModel'
         '500':
           $ref: '#/responses/unexpectedError'
-  /ruleBusiness:
+  /res/ruleBusiness:
     get:
       tags:
         - rule management
       operationId: getBusinessRule
       consumes: []
-      description: Load business rule from SDK.
+      description: Load business rule.
       parameters:
+        - $ref: '#/parameters/localeHeader'
+        - $ref: '#/parameters/deviceId'
+        - $ref: '#/parameters/channelHeader'
+        - $ref: '#/parameters/marketCountryCode'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/userTokenHeader'
+        - $ref: '#/parameters/userTokenHeaderRequired'
+        - $ref: '#/parameters/multivariateTestToken'
         - $ref: '#/parameters/ruleSetName'
         - $ref: '#/parameters/ruleName'
         - $ref: '#/parameters/tenantKey'
         - $ref: '#/parameters/version'
       responses:
         '200':
-          description: Successful response of loading business rule from SDK.
+          description: Successful response of loading business rule.
           schema:
             $ref: '#/definitions/businessRuleResponse'
         '400':
@@ -119,7 +142,10 @@ definitions:
         description: Code of the tenant.
       status:
         type: string
-        description: updated|failedToRefresh|pending.
+        enum:
+          - updated
+          - failedToRefresh
+          - pending
   ruleGroup:
     description: Rule group entity of table rule or business rule.
     type: object
@@ -174,9 +200,7 @@ definitions:
         description: Timestamp of when this subscriber reload itself last time.
       metadata:
         type: string
-        description: >-
-          metadata of the subscriber it wants to use, such as subscriber’s
-          service version.
+        description: Metadata of the subscriber it wants to use, such as subscriber’s service version.
       subscriptionInfo:
         $ref: '#/definitions/subscriptionInfo'
   subscriptionResponse:
@@ -185,12 +209,12 @@ definitions:
     properties:
       key:
         type: string
-        description: >-
-          UUID that rule engine service generated, null if this is the first
-          time.
+        description: UUID that rule engine service generated, null if this is the first time.
       status:
         type: string
-        description: success or error (status of the subscription)
+        enum:
+          - success
+          - error
       subscriptionInfo:
         $ref: '#/definitions/subscriptionInfo'
   tableRuleDefinition:
@@ -346,6 +370,50 @@ definitions:
         type: string
         description: The field which was at fault for the error
 parameters:
+  brand:
+    name: Brand
+    in: header
+    description: Requested brand
+    type: string
+  deviceId:
+    name: Device-Id
+    in: header
+    description: "Unique id passed by the client to represent the browser/mobile device making the call.
+                  Used only for logging purposes, and not required by t-RetailAPI for processing."
+    type: string
+  marketCountryCode:
+    name: Market-Country-Code
+    in: header
+    description: "Requested market country code"
+    type: string
+  localeHeader:
+    name: Accept-Language
+    in: header
+    description: "Requested locale string. See section 14.4:
+                  https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html"
+    required: true
+    type: string
+  userTokenHeader:
+    name: User-Token
+    in: header
+    description: "JWT authentication token for the logged in user"
+    type: string
+  userTokenHeaderRequired:
+    name: User-Token
+    in: header
+    description: "JWT authentication token for the logged in user"
+    required: true
+    type: string
+  channelHeader:
+    name: Sales-Channel
+    in: header
+    description: "Requested sales channel"
+    type: string
+  multivariateTestToken:
+    name: Multivariate-Test-Token
+    in: header
+    description: "A token for multivariate test"
+    type: string
   bundleName:
     name: bundleName
     in: query
