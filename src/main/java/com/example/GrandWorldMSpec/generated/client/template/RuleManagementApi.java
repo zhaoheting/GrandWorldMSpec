@@ -112,10 +112,12 @@ public class RuleManagementApi {
      * @param ruleName The name of a table rule or business rule.
      * @param tenantKey Code of the tenant.
      * @param version Rule version.
+     * @param page Current page.
+     * @param pageSize Item amount in every page.
      * @return TableRuleResponse
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public TableRuleResponse getTableRule(String bundleName, String ruleName, String tenantKey, String version) throws RestClientException {
+    public TableRuleResponse getTableRule(String bundleName, String ruleName, String tenantKey, String version, Integer page, Integer pageSize) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'bundleName' is set
@@ -138,6 +140,8 @@ public class RuleManagementApi {
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "ruleName", ruleName));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "tenantKey", tenantKey));
         queryParams.putAll(apiClient.parameterToMultiValueMap(null, "version", version));
+        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "page", page));
+        queryParams.putAll(apiClient.parameterToMultiValueMap(null, "pageSize", pageSize));
 
         final String[] accepts = { 
             "application/json"

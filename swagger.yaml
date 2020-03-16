@@ -59,6 +59,8 @@ paths:
         - $ref: '#/parameters/ruleName'
         - $ref: '#/parameters/tenantKey'
         - $ref: '#/parameters/version'
+        - $ref: '#/parameters/page'
+        - $ref: '#/parameters/pageSize'
       responses:
         '200':
           description: Successful response of loading table rule from SDK
@@ -115,6 +117,9 @@ definitions:
       tenantKey:
         type: string
         description: Code of the tenant.
+      status:
+        type: string
+        description: updated|failedToRefresh|pending.
   ruleGroup:
     description: Rule group entity of table rule or business rule.
     type: object
@@ -216,11 +221,11 @@ definitions:
         type: integer
         format: int32
         description: Foreign key references to the audit table.
-  tableRuleData:
+  tableRuleRowData:
     type: object
-    description: Table rule entity.
+    description: Row data of table rule.
     properties:
-      id:
+      rowId:
         type: integer
         format: int32
         description: Identifier
@@ -228,15 +233,35 @@ definitions:
         type: integer
         format: int32
         description: Foreign key.
-      ruleContent:
+      rowContent:
         type: string
-        description: XML Clob of rule content.
+        description: XML clob with each row content.
       tenantKey:
         type: string
-      language:
-        type: string
-      market:
-        type: string
+  tableRuleResponse:
+    type: object
+    description: Response of loading table rule.
+    properties:
+      definition:
+        type: object
+        $ref: '#/definitions/tableRuleDefinition'
+      tableRuleRows:
+        type: array
+        items:
+          $ref: '#/definitions/tableRuleRowData'
+        description: Row list of table rule.
+      totalRows:
+        type: integer
+        format: int32
+        description: Total row amount of the table rule.
+      currentPage:
+        type: integer
+        format: int32
+        description: Current page.
+      pageSize:
+        type: integer
+        format: int32
+        description: Item amount in every page.
   businessRuleSetDefinition:
     type: object
     description: Business rule-set definition entity.
@@ -272,44 +297,6 @@ definitions:
         type: integer
         format: int32
         description: Foreign key references to the audit table.
-  businessRule:
-    type: object
-    description: Business rule entity.
-    properties:
-      id:
-        type: integer
-        format: int32
-        description: Identifier
-      ruleDefinitionId:
-        type: integer
-        format: int32
-        description: Foreign key.
-      ruleName:
-        type: string
-        description: Name of this business rule.
-      tenantKey:
-        type: string
-      ruleContent:
-        type: string
-        description: >-
-          Taken from the latest version of this business rule received from
-          Console.
-      compiledContent:
-        type: string
-        format: byte
-        description: >-
-          Java content compiled from the rule content. Suppose each rule only
-          generates one java file.
-  tableRuleResponse:
-    type: object
-    description: Response of loading table rule.
-    properties:
-      definition:
-        type: object
-        $ref: '#/definitions/tableRuleDefinition'
-      data:
-        type: object
-        $ref: '#/definitions/tableRuleData'
   businessRuleResponse:
     type: object
     description: Response of loading business rule.
@@ -387,6 +374,20 @@ parameters:
     in: query
     type: string
     description: Rule version.
+  page:
+    name: page
+    in: query
+    type: integer
+    format: int32
+    default: 1
+    description: Current page.
+  pageSize:
+    name: pageSize
+    in: query
+    type: integer
+    format: int32
+    default: 100
+    description: Item amount in every page.
 responses:
   unexpectedError:
     description: An unexpected error occurred

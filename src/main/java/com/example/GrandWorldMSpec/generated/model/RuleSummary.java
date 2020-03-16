@@ -14,7 +14,7 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "Rule summary info of both table rule and business rule.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-10T16:17:50.323+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-16T13:26:14.544+08:00")
 
 public class RuleSummary   {
   @JsonProperty("name")
@@ -25,6 +25,9 @@ public class RuleSummary   {
 
   @JsonProperty("tenantKey")
   private String tenantKey = null;
+
+  @JsonProperty("status")
+  private String status = null;
 
   public RuleSummary name(String name) {
     this.name = name;
@@ -86,6 +89,26 @@ public class RuleSummary   {
     this.tenantKey = tenantKey;
   }
 
+  public RuleSummary status(String status) {
+    this.status = status;
+    return this;
+  }
+
+  /**
+   * updated|failedToRefresh|pending.
+   * @return status
+  **/
+  @ApiModelProperty(value = "updated|failedToRefresh|pending.")
+
+
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -98,12 +121,13 @@ public class RuleSummary   {
     RuleSummary ruleSummary = (RuleSummary) o;
     return Objects.equals(this.name, ruleSummary.name) &&
         Objects.equals(this.lastUpdated, ruleSummary.lastUpdated) &&
-        Objects.equals(this.tenantKey, ruleSummary.tenantKey);
+        Objects.equals(this.tenantKey, ruleSummary.tenantKey) &&
+        Objects.equals(this.status, ruleSummary.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, lastUpdated, tenantKey);
+    return Objects.hash(name, lastUpdated, tenantKey, status);
   }
 
   @Override
@@ -114,6 +138,7 @@ public class RuleSummary   {
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    lastUpdated: ").append(toIndentedString(lastUpdated)).append("\n");
     sb.append("    tenantKey: ").append(toIndentedString(tenantKey)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();
   }
