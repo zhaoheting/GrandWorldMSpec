@@ -1,46 +1,437 @@
 swagger: '2.0'
 info:
-  description: the description of apiinfo.
+  description: Api info of rule engine service.
   version: 1.0.0
-  title: Learn how to use swagger.
+  title: Rule Engine Service.
   contact:
-    name: openjaw team
-    email: heting.zhao@www.com
-host: GrandWorldM
+    name: Dragon Fire Team
+    email: team_dragonfire@www.com
+host: 'localhost:8080'
 basePath: /
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
 tags:
-  - name: AncillariesManagement
-    description: The Ancillaries API
+  - name: rule management
+    description: Interfaces for rule management.
 paths:
-  /ancillaries/getAncillaries:
-    get:
+  /res/ruleSubscription:
+    post:
       tags:
-        - AncillariesManagement
-      summary: 一个附加产品api value
-      description: 一个附加产品api notes
-      operationId: getAncillaries
-      produces:
-        - '*/*'
-        - application/json
+        - rule management
+      description: Rule engine subscriber report.
+      consumes: []
+      operationId: subscribeRules
       parameters:
-        - in: body
-          name: ancillarieName
-          description: ancillarieName
-          required: false
+        - $ref: '#/parameters/localeHeader'
+        - $ref: '#/parameters/deviceId'
+        - $ref: '#/parameters/channelHeader'
+        - $ref: '#/parameters/marketCountryCode'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/userTokenHeader'
+        - $ref: '#/parameters/userTokenHeaderRequired'
+        - $ref: '#/parameters/multivariateTestToken'
+        - name: subscriberRequest
+          in: body
           schema:
-            type: string
+            $ref: '#/definitions/subscriptionRequest'
       responses:
         '200':
-          description: OK
+          description: Successful response of rule engine subscriber report.
           schema:
-            type: string
-        '201':
-          description: 获取附加产品列表成功
-          schema:
-            type: string
+            $ref: '#/definitions/subscriptionResponse'
+        '400':
+          $ref: '#/responses/invalidRequest'
         '401':
-          description: Unauthorized
-        '403':
-          description: Forbidden
+          $ref: '#/responses/unauthorised'
         '404':
-          description: 获取附加产品列表失败
+          description: The search results do not exist.
+          schema:
+            $ref: '#/definitions/errorModel'
+        '500':
+          $ref: '#/responses/unexpectedError'
+  /res/ruleTable:
+    get:
+      tags:
+        - rule management
+      operationId: getTableRule
+      description: Load table rule.
+      consumes: []
+      parameters:
+        - $ref: '#/parameters/bundleName'
+        - $ref: '#/parameters/ruleName'
+        - $ref: '#/parameters/tenantKey'
+        - $ref: '#/parameters/version'
+      responses:
+        '200':
+          description: Successful response of loading table rule.
+          schema:
+            $ref: '#/definitions/tableRuleResponse'
+        '400':
+          $ref: '#/responses/invalidRequest'
+        '401':
+          $ref: '#/responses/unauthorised'
+        '404':
+          description: The search results do not exist.
+          schema:
+            $ref: '#/definitions/errorModel'
+        '500':
+          $ref: '#/responses/unexpectedError'
+  /res/ruleBusiness:
+    get:
+      tags:
+        - rule management
+      operationId: getBusinessRule
+      consumes: []
+      description: Load business rule.
+      parameters:
+        - $ref: '#/parameters/localeHeader'
+        - $ref: '#/parameters/deviceId'
+        - $ref: '#/parameters/channelHeader'
+        - $ref: '#/parameters/marketCountryCode'
+        - $ref: '#/parameters/brand'
+        - $ref: '#/parameters/userTokenHeader'
+        - $ref: '#/parameters/userTokenHeaderRequired'
+        - $ref: '#/parameters/multivariateTestToken'
+        - $ref: '#/parameters/ruleSetName'
+        - $ref: '#/parameters/ruleName'
+        - $ref: '#/parameters/tenantKey'
+        - $ref: '#/parameters/version'
+      responses:
+        '200':
+          description: Successful response of loading business rule.
+          schema:
+            $ref: '#/definitions/businessRuleResponse'
+        '400':
+          $ref: '#/responses/invalidRequest'
+        '401':
+          $ref: '#/responses/unauthorised'
+        '404':
+          description: The search results do not exist.
+          schema:
+            $ref: '#/definitions/errorModel'
+        '500':
+          $ref: '#/responses/unexpectedError'
+definitions:
+  ruleSummary:
+    description: Rule summary info of both table rule and business rule.
+    type: object
+    properties:
+      name:
+        type: string
+        description: The name of a table rule or business rule.
+      lastUpdated:
+        type: string
+        description: Last report time of the rule.
+      tenantKey:
+        type: string
+        description: Code of the tenant.
+      status:
+        type: string
+        enum:
+          - updated
+          - failedToRefresh
+          - pending
+  ruleGroup:
+    description: Rule group entity of table rule or business rule.
+    type: object
+    properties:
+      ruleGroupName:
+        type: string
+        description: The name indicates table rule's bundle or business rule's ruleset.
+      ruleList:
+        type: array
+        items:
+          $ref: '#/definitions/ruleSummary'
+        description: The subscribed rules of the group.
+      lastUpdated:
+        type: string
+        description: Last report time of the group.
+  subscriptionInfo:
+    type: object
+    description: A subscription info entity read from subscriber’s own properties.
+    properties:
+      tableRules:
+        type: array
+        items:
+          $ref: '#/definitions/ruleGroup'
+        description: Group list of table rule.
+      businessRules:
+        type: array
+        items:
+          $ref: '#/definitions/ruleGroup'
+        description: Group list of business rule.
+  subscriptionRequest:
+    description: The request of subscriber report.
+    type: object
+    required:
+      - name
+      - ipAddress
+      - subscriptionInfo
+    properties:
+      key:
+        type: string
+        description: >-
+          UUID that rule engine service generated, null if this is the first
+          time.
+      name:
+        type: string
+        description: 'Subscriber service name, read from subscriber’s own properties.'
+      ipAddress:
+        type: string
+        pattern: '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}'
+        description: Subscriber’s IP address.
+      lastUpdated:
+        type: string
+        description: Timestamp of when this subscriber reload itself last time.
+      metadata:
+        type: string
+        description: Metadata of the subscriber it wants to use, such as subscriber’s service version.
+      subscriptionInfo:
+        $ref: '#/definitions/subscriptionInfo'
+  subscriptionResponse:
+    description: The response of subscriber report.
+    type: object
+    properties:
+      key:
+        type: string
+        description: UUID that rule engine service generated, null if this is the first time.
+      status:
+        type: string
+        enum:
+          - success
+          - error
+      subscriptionInfo:
+        $ref: '#/definitions/subscriptionInfo'
+  tableRule:
+    type: object
+    description:  Table rule entity.
+    properties:
+      id:
+        type: string
+        description: Identifier.
+      bundle:
+        type: string
+      name:
+        type: string
+      version:
+        type: string
+      data:
+        type: string
+      tenantKey:
+        type: string
+      lastUpdated:
+        type: string
+        description: Timestamp when it’s last updated
+      status:
+        type: string
+        enum:
+          - Pending
+          - Activated
+          - Dropped
+      auditId:
+        type: integer
+        format: int32
+        description: Foreign key references to the audit table.
+  tableRuleResponse:
+    type: object
+    description: Table rule response model.
+    properties:
+      tableRule:
+        type: object
+        $ref: '#/definitions/tableRule'
+      totalPage:
+        type: integer
+        format: int32
+        description: Total pages of the table rule content.
+      currentPage:
+        type: integer
+        format: int32
+        description: Current page of the table rule content.
+  businessRuleSetDefinition:
+    type: object
+    description: Business rule-set definition entity.
+    properties:
+      id:
+        type: integer
+        format: int32
+        description: Identifier
+      RuleSetName:
+        type: string
+        description: Business rule set name.
+      version:
+        type: string
+      definitionContent:
+        type: string
+        description: XML Clob with rule-set definition.
+      compiledContent:
+        type: string
+        format: byte
+        description: >-
+          Java content compiled from the rule content. Suppose each rule-set
+          definition only generates one java file.
+      lastUpdated:
+        type: string
+        description: Timestamp when it’s last updated.
+      status:
+        type: string
+        enum:
+          - Pending
+          - Activated
+          - Dropped
+      auditId:
+        type: integer
+        format: int32
+        description: Foreign key references to the audit table.
+  businessRuleResponse:
+    type: object
+    description: Response of loading business rule.
+    properties:
+      definition:
+        type: object
+        $ref: '#/definitions/businessRuleSetDefinition'
+      contentList:
+        type: array
+        items:
+          type: string
+          format: byte
+          description: >-
+            Java content list compiled from the rule content. Suppose each
+            rule-set definition only generates one java file.
+  errorModel:
+    type: object
+    properties:
+      apiErrors:
+        type: array
+        description: list of one or more errors that have occured
+        items:
+          $ref: '#/definitions/apiError'
+  apiError:
+    type: object
+    required:
+      - errorCode
+      - userMessage
+      - devMessage
+    properties:
+      errorCode:
+        type: string
+        description: >-
+          A Spring validation code/Openjaw error code/Supplier Error describing
+          the type of error
+      devMessage:
+        type: string
+        description: >-
+          A message describing the error in more detail to help the developer
+          learn more about the issue
+      userMessage:
+        type: string
+        description: >-
+          A message describing the error in simple language. May be the same as
+          devMessage in some cases
+      field:
+        type: string
+        description: The field which was at fault for the error
+parameters:
+  brand:
+    name: Brand
+    in: header
+    description: Requested brand
+    type: string
+  deviceId:
+    name: Device-Id
+    in: header
+    description: "Unique id passed by the client to represent the browser/mobile device making the call.
+                  Used only for logging purposes, and not required by t-RetailAPI for processing."
+    type: string
+  marketCountryCode:
+    name: Market-Country-Code
+    in: header
+    description: "Requested market country code"
+    type: string
+  localeHeader:
+    name: Accept-Language
+    in: header
+    description: "Requested locale string. See section 14.4:
+                  https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html"
+    required: true
+    type: string
+  userTokenHeader:
+    name: User-Token
+    in: header
+    description: "JWT authentication token for the logged in user"
+    type: string
+  userTokenHeaderRequired:
+    name: User-Token
+    in: header
+    description: "JWT authentication token for the logged in user"
+    required: true
+    type: string
+  channelHeader:
+    name: Sales-Channel
+    in: header
+    description: "Requested sales channel"
+    type: string
+  multivariateTestToken:
+    name: Multivariate-Test-Token
+    in: header
+    description: "A token for multivariate test"
+    type: string
+  bundleName:
+    name: bundleName
+    in: query
+    type: string
+    required: true
+    description: The name of table rule's bundle.
+  ruleSetName:
+    name: ruleSetName
+    in: query
+    type: string
+    required: true
+    description: The name of business rule's ruleset.
+  ruleName:
+    name: ruleName
+    in: query
+    type: string
+    required: true
+    description: The name of a table rule or business rule.
+  tenantKey:
+    name: tenantKey
+    in: query
+    type: string
+    description: Code of the tenant.
+  version:
+    name: version
+    in: query
+    type: string
+    description: Rule version.
+  page:
+    name: page
+    in: query
+    type: integer
+    format: int32
+    default: 1
+    description: Current page.
+  pageSize:
+    name: pageSize
+    in: query
+    type: integer
+    format: int32
+    default: 100
+    description: Item amount in every page.
+responses:
+  unexpectedError:
+    description: An unexpected error occurred
+    schema:
+      $ref: '#/definitions/errorModel'
+  invalidRequest:
+    description: The request was invalid
+    schema:
+      $ref: '#/definitions/errorModel'
+  unauthorised:
+    description: User not authorised to access this resource
+    schema:
+      $ref: '#/definitions/errorModel'
