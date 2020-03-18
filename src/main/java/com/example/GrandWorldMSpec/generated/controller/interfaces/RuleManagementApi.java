@@ -9,7 +9,7 @@ import com.example.GrandWorldMSpec.generated.model.BusinessRuleResponse;
 import com.example.GrandWorldMSpec.generated.model.ErrorModel;
 import com.example.GrandWorldMSpec.generated.model.SubscriptionRequest;
 import com.example.GrandWorldMSpec.generated.model.SubscriptionResponse;
-import com.example.GrandWorldMSpec.generated.model.TableRuleResponse;
+import com.example.GrandWorldMSpec.generated.model.TableRule;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
@@ -32,7 +32,7 @@ import javax.validation.constraints.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-16T13:26:14.544+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-17T11:58:54.625+08:00")
 
 @Api(value = "RuleManagement", description = "the RuleManagement API")
 public interface RuleManagementApi {
@@ -51,17 +51,17 @@ public interface RuleManagementApi {
         return getRequest().map(r -> r.getHeader("Accept"));
     }
 
-    @ApiOperation(value = "", nickname = "getBusinessRule", notes = "Load business rule from SDK.", response = BusinessRuleResponse.class, tags={ "rule management", })
+    @ApiOperation(value = "", nickname = "getBusinessRule", notes = "Load business rule.", response = BusinessRuleResponse.class, tags={ "rule management", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Successful response of loading business rule from SDK.", response = BusinessRuleResponse.class),
+        @ApiResponse(code = 200, message = "Successful response of loading business rule.", response = BusinessRuleResponse.class),
         @ApiResponse(code = 400, message = "The request was invalid", response = ErrorModel.class),
         @ApiResponse(code = 401, message = "User not authorised to access this resource", response = ErrorModel.class),
         @ApiResponse(code = 404, message = "The search results do not exist.", response = ErrorModel.class),
         @ApiResponse(code = 500, message = "An unexpected error occurred", response = ErrorModel.class) })
-    @RequestMapping(value = "/ruleBusiness",
+    @RequestMapping(value = "/res/ruleBusiness",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<BusinessRuleResponse> getBusinessRule(@NotNull @ApiParam(value = "The name of business rule's ruleset.", required = true) @Valid @RequestParam(value = "ruleSetName", required = true) String ruleSetName,@NotNull @ApiParam(value = "The name of a table rule or business rule.", required = true) @Valid @RequestParam(value = "ruleName", required = true) String ruleName,@ApiParam(value = "Code of the tenant.") @Valid @RequestParam(value = "tenantKey", required = false) String tenantKey,@ApiParam(value = "Rule version.") @Valid @RequestParam(value = "version", required = false) String version) {
+    default ResponseEntity<BusinessRuleResponse> getBusinessRule(@ApiParam(value = "Requested locale string. See section 14.4: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html" ,required=true) @RequestHeader(value="Accept-Language", required=true) String acceptLanguage,@ApiParam(value = "JWT authentication token for the logged in user" ,required=true) @RequestHeader(value="User-Token", required=true) String userToken,@NotNull @ApiParam(value = "The name of business rule's ruleset.", required = true) @Valid @RequestParam(value = "ruleSetName", required = true) String ruleSetName,@NotNull @ApiParam(value = "The name of a table rule or business rule.", required = true) @Valid @RequestParam(value = "ruleName", required = true) String ruleName,@ApiParam(value = "Unique id passed by the client to represent the browser/mobile device making the call. Used only for logging purposes, and not required by t-RetailAPI for processing." ) @RequestHeader(value="Device-Id", required=false) String deviceId,@ApiParam(value = "Requested sales channel" ) @RequestHeader(value="Sales-Channel", required=false) String salesChannel,@ApiParam(value = "Requested market country code" ) @RequestHeader(value="Market-Country-Code", required=false) String marketCountryCode,@ApiParam(value = "Requested brand" ) @RequestHeader(value="Brand", required=false) String brand,@ApiParam(value = "A token for multivariate test" ) @RequestHeader(value="Multivariate-Test-Token", required=false) String multivariateTestToken,@ApiParam(value = "Code of the tenant.") @Valid @RequestParam(value = "tenantKey", required = false) String tenantKey,@ApiParam(value = "Rule version.") @Valid @RequestParam(value = "version", required = false) String version) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
@@ -78,21 +78,21 @@ public interface RuleManagementApi {
     }
 
 
-    @ApiOperation(value = "", nickname = "getTableRule", notes = "Load table rule from SDK.", response = TableRuleResponse.class, tags={ "rule management", })
+    @ApiOperation(value = "", nickname = "getTableRule", notes = "Load table rule.", response = TableRule.class, tags={ "rule management", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Successful response of loading table rule from SDK", response = TableRuleResponse.class),
+        @ApiResponse(code = 200, message = "Successful response of loading table rule.", response = TableRule.class),
         @ApiResponse(code = 400, message = "The request was invalid", response = ErrorModel.class),
         @ApiResponse(code = 401, message = "User not authorised to access this resource", response = ErrorModel.class),
         @ApiResponse(code = 404, message = "The search results do not exist.", response = ErrorModel.class),
         @ApiResponse(code = 500, message = "An unexpected error occurred", response = ErrorModel.class) })
-    @RequestMapping(value = "/ruleTable",
+    @RequestMapping(value = "/res/ruleTable",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<TableRuleResponse> getTableRule(@NotNull @ApiParam(value = "The name of table rule's bundle.", required = true) @Valid @RequestParam(value = "bundleName", required = true) String bundleName,@NotNull @ApiParam(value = "The name of a table rule or business rule.", required = true) @Valid @RequestParam(value = "ruleName", required = true) String ruleName,@ApiParam(value = "Code of the tenant.") @Valid @RequestParam(value = "tenantKey", required = false) String tenantKey,@ApiParam(value = "Rule version.") @Valid @RequestParam(value = "version", required = false) String version,@ApiParam(value = "Current page.", defaultValue = "1") @Valid @RequestParam(value = "page", required = false, defaultValue="1") Integer page,@ApiParam(value = "Item amount in every page.", defaultValue = "100") @Valid @RequestParam(value = "pageSize", required = false, defaultValue="100") Integer pageSize) {
+    default ResponseEntity<TableRule> getTableRule(@NotNull @ApiParam(value = "The name of table rule's bundle.", required = true) @Valid @RequestParam(value = "bundleName", required = true) String bundleName,@NotNull @ApiParam(value = "The name of a table rule or business rule.", required = true) @Valid @RequestParam(value = "ruleName", required = true) String ruleName,@ApiParam(value = "Code of the tenant.") @Valid @RequestParam(value = "tenantKey", required = false) String tenantKey,@ApiParam(value = "Rule version.") @Valid @RequestParam(value = "version", required = false) String version) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"tableRuleRows\" : [ {    \"ruleDefinitionId\" : 1,    \"rowContent\" : \"rowContent\",    \"tenantKey\" : \"tenantKey\",    \"rowId\" : 6  }, {    \"ruleDefinitionId\" : 1,    \"rowContent\" : \"rowContent\",    \"tenantKey\" : \"tenantKey\",    \"rowId\" : 6  } ],  \"pageSize\" : 2,  \"definition\" : {    \"auditId\" : 0,    \"lastUpdated\" : \"lastUpdated\",    \"definitionContent\" : \"definitionContent\",    \"name\" : \"name\",    \"id\" : \"id\",    \"version\" : \"version\",    \"group\" : \"group\",    \"status\" : \"Pending\"  },  \"totalRows\" : 5,  \"currentPage\" : 5}", TableRuleResponse.class), HttpStatus.NOT_IMPLEMENTED);
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"auditId\" : 0,  \"lastUpdated\" : \"lastUpdated\",  \"data\" : \"data\",  \"tenantKey\" : \"tenantKey\",  \"name\" : \"name\",  \"id\" : \"id\",  \"bundle\" : \"bundle\",  \"version\" : \"version\",  \"status\" : \"Pending\"}", TableRule.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -107,19 +107,19 @@ public interface RuleManagementApi {
 
     @ApiOperation(value = "", nickname = "subscribeRules", notes = "Rule engine subscriber report.", response = SubscriptionResponse.class, tags={ "rule management", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "successful response of rule engine subscriber report.", response = SubscriptionResponse.class),
+        @ApiResponse(code = 200, message = "Successful response of rule engine subscriber report.", response = SubscriptionResponse.class),
         @ApiResponse(code = 400, message = "The request was invalid", response = ErrorModel.class),
         @ApiResponse(code = 401, message = "User not authorised to access this resource", response = ErrorModel.class),
         @ApiResponse(code = 404, message = "The search results do not exist.", response = ErrorModel.class),
         @ApiResponse(code = 500, message = "An unexpected error occurred", response = ErrorModel.class) })
-    @RequestMapping(value = "/ruleSubscription",
+    @RequestMapping(value = "/res/ruleSubscription",
         produces = { "application/json" }, 
         method = RequestMethod.POST)
-    default ResponseEntity<SubscriptionResponse> subscribeRules(@ApiParam(value = "Rule engine subscriber report reuqest."  )  @Valid @RequestBody SubscriptionRequest subscriberRequest) {
+    default ResponseEntity<SubscriptionResponse> subscribeRules(@ApiParam(value = "Requested locale string. See section 14.4: https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html" ,required=true) @RequestHeader(value="Accept-Language", required=true) String acceptLanguage,@ApiParam(value = "JWT authentication token for the logged in user" ,required=true) @RequestHeader(value="User-Token", required=true) String userToken,@ApiParam(value = "Unique id passed by the client to represent the browser/mobile device making the call. Used only for logging purposes, and not required by t-RetailAPI for processing." ) @RequestHeader(value="Device-Id", required=false) String deviceId,@ApiParam(value = "Requested sales channel" ) @RequestHeader(value="Sales-Channel", required=false) String salesChannel,@ApiParam(value = "Requested market country code" ) @RequestHeader(value="Market-Country-Code", required=false) String marketCountryCode,@ApiParam(value = "Requested brand" ) @RequestHeader(value="Brand", required=false) String brand,@ApiParam(value = "A token for multivariate test" ) @RequestHeader(value="Multivariate-Test-Token", required=false) String multivariateTestToken,@ApiParam(value = ""  )  @Valid @RequestBody SubscriptionRequest subscriberRequest) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"subscriptionInfo\" : {    \"businessRules\" : [ {      \"lastUpdated\" : \"lastUpdated\",      \"ruleGroupName\" : \"ruleGroupName\",      \"ruleList\" : [ {        \"lastUpdated\" : \"lastUpdated\",        \"tenantKey\" : \"tenantKey\",        \"name\" : \"name\",        \"status\" : \"status\"      }, {        \"lastUpdated\" : \"lastUpdated\",        \"tenantKey\" : \"tenantKey\",        \"name\" : \"name\",        \"status\" : \"status\"      } ]    }, {      \"lastUpdated\" : \"lastUpdated\",      \"ruleGroupName\" : \"ruleGroupName\",      \"ruleList\" : [ {        \"lastUpdated\" : \"lastUpdated\",        \"tenantKey\" : \"tenantKey\",        \"name\" : \"name\",        \"status\" : \"status\"      }, {        \"lastUpdated\" : \"lastUpdated\",        \"tenantKey\" : \"tenantKey\",        \"name\" : \"name\",        \"status\" : \"status\"      } ]    } ],    \"tableRules\" : [ {      \"lastUpdated\" : \"lastUpdated\",      \"ruleGroupName\" : \"ruleGroupName\",      \"ruleList\" : [ {        \"lastUpdated\" : \"lastUpdated\",        \"tenantKey\" : \"tenantKey\",        \"name\" : \"name\",        \"status\" : \"status\"      }, {        \"lastUpdated\" : \"lastUpdated\",        \"tenantKey\" : \"tenantKey\",        \"name\" : \"name\",        \"status\" : \"status\"      } ]    }, {      \"lastUpdated\" : \"lastUpdated\",      \"ruleGroupName\" : \"ruleGroupName\",      \"ruleList\" : [ {        \"lastUpdated\" : \"lastUpdated\",        \"tenantKey\" : \"tenantKey\",        \"name\" : \"name\",        \"status\" : \"status\"      }, {        \"lastUpdated\" : \"lastUpdated\",        \"tenantKey\" : \"tenantKey\",        \"name\" : \"name\",        \"status\" : \"status\"      } ]    } ]  },  \"key\" : \"key\",  \"status\" : \"status\"}", SubscriptionResponse.class), HttpStatus.NOT_IMPLEMENTED);
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"subscriptionInfo\" : {    \"businessRules\" : [ {      \"lastUpdated\" : \"lastUpdated\",      \"ruleGroupName\" : \"ruleGroupName\",      \"ruleList\" : [ {        \"lastUpdated\" : \"lastUpdated\",        \"tenantKey\" : \"tenantKey\",        \"name\" : \"name\",        \"status\" : \"updated\"      }, {        \"lastUpdated\" : \"lastUpdated\",        \"tenantKey\" : \"tenantKey\",        \"name\" : \"name\",        \"status\" : \"updated\"      } ]    }, {      \"lastUpdated\" : \"lastUpdated\",      \"ruleGroupName\" : \"ruleGroupName\",      \"ruleList\" : [ {        \"lastUpdated\" : \"lastUpdated\",        \"tenantKey\" : \"tenantKey\",        \"name\" : \"name\",        \"status\" : \"updated\"      }, {        \"lastUpdated\" : \"lastUpdated\",        \"tenantKey\" : \"tenantKey\",        \"name\" : \"name\",        \"status\" : \"updated\"      } ]    } ],    \"tableRules\" : [ {      \"lastUpdated\" : \"lastUpdated\",      \"ruleGroupName\" : \"ruleGroupName\",      \"ruleList\" : [ {        \"lastUpdated\" : \"lastUpdated\",        \"tenantKey\" : \"tenantKey\",        \"name\" : \"name\",        \"status\" : \"updated\"      }, {        \"lastUpdated\" : \"lastUpdated\",        \"tenantKey\" : \"tenantKey\",        \"name\" : \"name\",        \"status\" : \"updated\"      } ]    }, {      \"lastUpdated\" : \"lastUpdated\",      \"ruleGroupName\" : \"ruleGroupName\",      \"ruleList\" : [ {        \"lastUpdated\" : \"lastUpdated\",        \"tenantKey\" : \"tenantKey\",        \"name\" : \"name\",        \"status\" : \"updated\"      }, {        \"lastUpdated\" : \"lastUpdated\",        \"tenantKey\" : \"tenantKey\",        \"name\" : \"name\",        \"status\" : \"updated\"      } ]    } ]  },  \"key\" : \"key\",  \"status\" : \"success\"}", SubscriptionResponse.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

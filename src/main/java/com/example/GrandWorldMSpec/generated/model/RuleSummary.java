@@ -3,6 +3,7 @@ package com.example.GrandWorldMSpec.generated.model;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.validation.annotation.Validated;
@@ -14,7 +15,7 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "Rule summary info of both table rule and business rule.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-16T13:26:14.544+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-17T11:58:54.625+08:00")
 
 public class RuleSummary   {
   @JsonProperty("name")
@@ -26,8 +27,41 @@ public class RuleSummary   {
   @JsonProperty("tenantKey")
   private String tenantKey = null;
 
+  /**
+   * Gets or Sets status
+   */
+  public enum StatusEnum {
+    UPDATED("updated"),
+    
+    FAILEDTOREFRESH("failedToRefresh"),
+    
+    PENDING("pending");
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    @Override
+    @JsonValue
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    @JsonCreator
+    public static StatusEnum fromValue(String text) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+  }
+
   @JsonProperty("status")
-  private String status = null;
+  private StatusEnum status = null;
 
   public RuleSummary name(String name) {
     this.name = name;
@@ -89,23 +123,23 @@ public class RuleSummary   {
     this.tenantKey = tenantKey;
   }
 
-  public RuleSummary status(String status) {
+  public RuleSummary status(StatusEnum status) {
     this.status = status;
     return this;
   }
 
   /**
-   * updated|failedToRefresh|pending.
+   * Get status
    * @return status
   **/
-  @ApiModelProperty(value = "updated|failedToRefresh|pending.")
+  @ApiModelProperty(value = "")
 
 
-  public String getStatus() {
+  public StatusEnum getStatus() {
     return status;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(StatusEnum status) {
     this.status = status;
   }
 

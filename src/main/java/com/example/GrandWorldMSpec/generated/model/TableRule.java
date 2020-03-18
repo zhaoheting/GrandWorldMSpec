@@ -11,18 +11,18 @@ import javax.validation.Valid;
 import javax.validation.constraints.*;
 
 /**
- * Table rule definition entity.
+ * Table rule entity.
  */
-@ApiModel(description = "Table rule definition entity.")
+@ApiModel(description = "Table rule entity.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-16T13:26:14.544+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-17T11:58:54.625+08:00")
 
-public class TableRuleDefinition   {
+public class TableRule   {
   @JsonProperty("id")
   private String id = null;
 
-  @JsonProperty("group")
-  private String group = null;
+  @JsonProperty("bundle")
+  private String bundle = null;
 
   @JsonProperty("name")
   private String name = null;
@@ -30,8 +30,11 @@ public class TableRuleDefinition   {
   @JsonProperty("version")
   private String version = null;
 
-  @JsonProperty("definitionContent")
-  private String definitionContent = null;
+  @JsonProperty("data")
+  private String data = null;
+
+  @JsonProperty("tenantKey")
+  private String tenantKey = null;
 
   @JsonProperty("lastUpdated")
   private String lastUpdated = null;
@@ -75,7 +78,7 @@ public class TableRuleDefinition   {
   @JsonProperty("auditId")
   private Integer auditId = null;
 
-  public TableRuleDefinition id(String id) {
+  public TableRule id(String id) {
     this.id = id;
     return this;
   }
@@ -95,27 +98,27 @@ public class TableRuleDefinition   {
     this.id = id;
   }
 
-  public TableRuleDefinition group(String group) {
-    this.group = group;
+  public TableRule bundle(String bundle) {
+    this.bundle = bundle;
     return this;
   }
 
   /**
-   * Get group
-   * @return group
+   * Get bundle
+   * @return bundle
   **/
   @ApiModelProperty(value = "")
 
 
-  public String getGroup() {
-    return group;
+  public String getBundle() {
+    return bundle;
   }
 
-  public void setGroup(String group) {
-    this.group = group;
+  public void setBundle(String bundle) {
+    this.bundle = bundle;
   }
 
-  public TableRuleDefinition name(String name) {
+  public TableRule name(String name) {
     this.name = name;
     return this;
   }
@@ -135,7 +138,7 @@ public class TableRuleDefinition   {
     this.name = name;
   }
 
-  public TableRuleDefinition version(String version) {
+  public TableRule version(String version) {
     this.version = version;
     return this;
   }
@@ -155,27 +158,47 @@ public class TableRuleDefinition   {
     this.version = version;
   }
 
-  public TableRuleDefinition definitionContent(String definitionContent) {
-    this.definitionContent = definitionContent;
+  public TableRule data(String data) {
+    this.data = data;
     return this;
   }
 
   /**
-   * Get definitionContent
-   * @return definitionContent
+   * Get data
+   * @return data
   **/
   @ApiModelProperty(value = "")
 
 
-  public String getDefinitionContent() {
-    return definitionContent;
+  public String getData() {
+    return data;
   }
 
-  public void setDefinitionContent(String definitionContent) {
-    this.definitionContent = definitionContent;
+  public void setData(String data) {
+    this.data = data;
   }
 
-  public TableRuleDefinition lastUpdated(String lastUpdated) {
+  public TableRule tenantKey(String tenantKey) {
+    this.tenantKey = tenantKey;
+    return this;
+  }
+
+  /**
+   * Get tenantKey
+   * @return tenantKey
+  **/
+  @ApiModelProperty(value = "")
+
+
+  public String getTenantKey() {
+    return tenantKey;
+  }
+
+  public void setTenantKey(String tenantKey) {
+    this.tenantKey = tenantKey;
+  }
+
+  public TableRule lastUpdated(String lastUpdated) {
     this.lastUpdated = lastUpdated;
     return this;
   }
@@ -195,7 +218,7 @@ public class TableRuleDefinition   {
     this.lastUpdated = lastUpdated;
   }
 
-  public TableRuleDefinition status(StatusEnum status) {
+  public TableRule status(StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -215,7 +238,7 @@ public class TableRuleDefinition   {
     this.status = status;
   }
 
-  public TableRuleDefinition auditId(Integer auditId) {
+  public TableRule auditId(Integer auditId) {
     this.auditId = auditId;
     return this;
   }
@@ -244,32 +267,34 @@ public class TableRuleDefinition   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TableRuleDefinition tableRuleDefinition = (TableRuleDefinition) o;
-    return Objects.equals(this.id, tableRuleDefinition.id) &&
-        Objects.equals(this.group, tableRuleDefinition.group) &&
-        Objects.equals(this.name, tableRuleDefinition.name) &&
-        Objects.equals(this.version, tableRuleDefinition.version) &&
-        Objects.equals(this.definitionContent, tableRuleDefinition.definitionContent) &&
-        Objects.equals(this.lastUpdated, tableRuleDefinition.lastUpdated) &&
-        Objects.equals(this.status, tableRuleDefinition.status) &&
-        Objects.equals(this.auditId, tableRuleDefinition.auditId);
+    TableRule tableRule = (TableRule) o;
+    return Objects.equals(this.id, tableRule.id) &&
+        Objects.equals(this.bundle, tableRule.bundle) &&
+        Objects.equals(this.name, tableRule.name) &&
+        Objects.equals(this.version, tableRule.version) &&
+        Objects.equals(this.data, tableRule.data) &&
+        Objects.equals(this.tenantKey, tableRule.tenantKey) &&
+        Objects.equals(this.lastUpdated, tableRule.lastUpdated) &&
+        Objects.equals(this.status, tableRule.status) &&
+        Objects.equals(this.auditId, tableRule.auditId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(id, group, name, version, definitionContent, lastUpdated, status, auditId);
+    return Objects.hash(id, bundle, name, version, data, tenantKey, lastUpdated, status, auditId);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TableRuleDefinition {\n");
+    sb.append("class TableRule {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    group: ").append(toIndentedString(group)).append("\n");
+    sb.append("    bundle: ").append(toIndentedString(bundle)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    version: ").append(toIndentedString(version)).append("\n");
-    sb.append("    definitionContent: ").append(toIndentedString(definitionContent)).append("\n");
+    sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    tenantKey: ").append(toIndentedString(tenantKey)).append("\n");
     sb.append("    lastUpdated: ").append(toIndentedString(lastUpdated)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    auditId: ").append(toIndentedString(auditId)).append("\n");

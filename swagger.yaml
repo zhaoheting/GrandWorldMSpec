@@ -62,25 +62,15 @@ paths:
       description: Load table rule.
       consumes: []
       parameters:
-        - $ref: '#/parameters/localeHeader'
-        - $ref: '#/parameters/deviceId'
-        - $ref: '#/parameters/channelHeader'
-        - $ref: '#/parameters/marketCountryCode'
-        - $ref: '#/parameters/brand'
-        - $ref: '#/parameters/userTokenHeader'
-        - $ref: '#/parameters/userTokenHeaderRequired'
-        - $ref: '#/parameters/multivariateTestToken'
         - $ref: '#/parameters/bundleName'
         - $ref: '#/parameters/ruleName'
         - $ref: '#/parameters/tenantKey'
         - $ref: '#/parameters/version'
-        - $ref: '#/parameters/page'
-        - $ref: '#/parameters/pageSize'
       responses:
         '200':
           description: Successful response of loading table rule.
           schema:
-            $ref: '#/definitions/tableRuleResponse'
+            $ref: '#/definitions/tableRule'
         '400':
           $ref: '#/responses/invalidRequest'
         '401':
@@ -217,20 +207,22 @@ definitions:
           - error
       subscriptionInfo:
         $ref: '#/definitions/subscriptionInfo'
-  tableRuleDefinition:
+  tableRule:
     type: object
-    description: Table rule definition entity.
+    description: Table rule entity.
     properties:
       id:
         type: string
         description: Identifier.
-      group:
+      bundle:
         type: string
       name:
         type: string
       version:
         type: string
-      definitionContent:
+      data:
+        type: string
+      tenantKey:
         type: string
       lastUpdated:
         type: string
@@ -245,47 +237,6 @@ definitions:
         type: integer
         format: int32
         description: Foreign key references to the audit table.
-  tableRuleRowData:
-    type: object
-    description: Row data of table rule.
-    properties:
-      rowId:
-        type: integer
-        format: int32
-        description: Identifier
-      ruleDefinitionId:
-        type: integer
-        format: int32
-        description: Foreign key.
-      rowContent:
-        type: string
-        description: XML clob with each row content.
-      tenantKey:
-        type: string
-  tableRuleResponse:
-    type: object
-    description: Response of loading table rule.
-    properties:
-      definition:
-        type: object
-        $ref: '#/definitions/tableRuleDefinition'
-      tableRuleRows:
-        type: array
-        items:
-          $ref: '#/definitions/tableRuleRowData'
-        description: Row list of table rule.
-      totalRows:
-        type: integer
-        format: int32
-        description: Total row amount of the table rule.
-      currentPage:
-        type: integer
-        format: int32
-        description: Current page.
-      pageSize:
-        type: integer
-        format: int32
-        description: Item amount in every page.
   businessRuleSetDefinition:
     type: object
     description: Business rule-set definition entity.

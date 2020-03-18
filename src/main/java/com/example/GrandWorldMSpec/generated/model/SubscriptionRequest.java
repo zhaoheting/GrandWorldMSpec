@@ -15,7 +15,7 @@ import javax.validation.constraints.*;
  */
 @ApiModel(description = "The request of subscriber report.")
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-16T13:26:14.544+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-17T11:58:54.625+08:00")
 
 public class SubscriptionRequest   {
   @JsonProperty("key")
@@ -124,10 +124,10 @@ public class SubscriptionRequest   {
   }
 
   /**
-   * metadata of the subscriber it wants to use, such as subscriber’s service version.
+   * Metadata of the subscriber it wants to use, such as subscriber’s service version.
    * @return metadata
   **/
-  @ApiModelProperty(value = "metadata of the subscriber it wants to use, such as subscriber’s service version.")
+  @ApiModelProperty(value = "Metadata of the subscriber it wants to use, such as subscriber’s service version.")
 
 
   public String getMetadata() {
