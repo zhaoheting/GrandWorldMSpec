@@ -6,7 +6,7 @@ import com.example.GrandWorldMSpec.generated.model.BusinessRuleResponse;
 import com.example.GrandWorldMSpec.generated.model.ErrorModel;
 import com.example.GrandWorldMSpec.generated.model.SubscriptionRequest;
 import com.example.GrandWorldMSpec.generated.model.SubscriptionResponse;
-import com.example.GrandWorldMSpec.generated.model.TableRule;
+import com.example.GrandWorldMSpec.generated.model.TableRuleResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -144,10 +144,10 @@ public class RuleManagementApi {
      * @param ruleName The name of a table rule or business rule.
      * @param tenantKey Code of the tenant.
      * @param version Rule version.
-     * @return TableRule
+     * @return TableRuleResponse
      * @throws RestClientException if an error occurs while attempting to invoke the API
      */
-    public TableRule getTableRule(String bundleName, String ruleName, String tenantKey, String version) throws RestClientException {
+    public TableRuleResponse getTableRule(String bundleName, String ruleName, String tenantKey, String version) throws RestClientException {
         Object postBody = null;
         
         // verify the required parameter 'bundleName' is set
@@ -180,7 +180,7 @@ public class RuleManagementApi {
 
         String[] authNames = new String[] {  };
 
-        ParameterizedTypeReference<TableRule> returnType = new ParameterizedTypeReference<TableRule>() {};
+        ParameterizedTypeReference<TableRuleResponse> returnType = new ParameterizedTypeReference<TableRuleResponse>() {};
         return apiClient.invokeAPI(path, HttpMethod.GET, queryParams, postBody, headerParams, formParams, accept, contentType, authNames, returnType);
     }
     /**

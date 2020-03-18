@@ -9,7 +9,7 @@ import com.example.GrandWorldMSpec.generated.model.BusinessRuleResponse;
 import com.example.GrandWorldMSpec.generated.model.ErrorModel;
 import com.example.GrandWorldMSpec.generated.model.SubscriptionRequest;
 import com.example.GrandWorldMSpec.generated.model.SubscriptionResponse;
-import com.example.GrandWorldMSpec.generated.model.TableRule;
+import com.example.GrandWorldMSpec.generated.model.TableRuleResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
@@ -32,7 +32,7 @@ import javax.validation.constraints.*;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
-@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-17T11:58:54.625+08:00")
+@javax.annotation.Generated(value = "io.swagger.codegen.languages.SpringCodegen", date = "2020-03-18T14:03:57.953+08:00")
 
 @Api(value = "RuleManagement", description = "the RuleManagement API")
 public interface RuleManagementApi {
@@ -78,9 +78,9 @@ public interface RuleManagementApi {
     }
 
 
-    @ApiOperation(value = "", nickname = "getTableRule", notes = "Load table rule.", response = TableRule.class, tags={ "rule management", })
+    @ApiOperation(value = "", nickname = "getTableRule", notes = "Load table rule.", response = TableRuleResponse.class, tags={ "rule management", })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Successful response of loading table rule.", response = TableRule.class),
+        @ApiResponse(code = 200, message = "Successful response of loading table rule.", response = TableRuleResponse.class),
         @ApiResponse(code = 400, message = "The request was invalid", response = ErrorModel.class),
         @ApiResponse(code = 401, message = "User not authorised to access this resource", response = ErrorModel.class),
         @ApiResponse(code = 404, message = "The search results do not exist.", response = ErrorModel.class),
@@ -88,11 +88,11 @@ public interface RuleManagementApi {
     @RequestMapping(value = "/res/ruleTable",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    default ResponseEntity<TableRule> getTableRule(@NotNull @ApiParam(value = "The name of table rule's bundle.", required = true) @Valid @RequestParam(value = "bundleName", required = true) String bundleName,@NotNull @ApiParam(value = "The name of a table rule or business rule.", required = true) @Valid @RequestParam(value = "ruleName", required = true) String ruleName,@ApiParam(value = "Code of the tenant.") @Valid @RequestParam(value = "tenantKey", required = false) String tenantKey,@ApiParam(value = "Rule version.") @Valid @RequestParam(value = "version", required = false) String version) {
+    default ResponseEntity<TableRuleResponse> getTableRule(@NotNull @ApiParam(value = "The name of table rule's bundle.", required = true) @Valid @RequestParam(value = "bundleName", required = true) String bundleName,@NotNull @ApiParam(value = "The name of a table rule or business rule.", required = true) @Valid @RequestParam(value = "ruleName", required = true) String ruleName,@ApiParam(value = "Code of the tenant.") @Valid @RequestParam(value = "tenantKey", required = false) String tenantKey,@ApiParam(value = "Rule version.") @Valid @RequestParam(value = "version", required = false) String version) {
         if(getObjectMapper().isPresent() && getAcceptHeader().isPresent()) {
             if (getAcceptHeader().get().contains("application/json")) {
                 try {
-                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"auditId\" : 0,  \"lastUpdated\" : \"lastUpdated\",  \"data\" : \"data\",  \"tenantKey\" : \"tenantKey\",  \"name\" : \"name\",  \"id\" : \"id\",  \"bundle\" : \"bundle\",  \"version\" : \"version\",  \"status\" : \"Pending\"}", TableRule.class), HttpStatus.NOT_IMPLEMENTED);
+                    return new ResponseEntity<>(getObjectMapper().get().readValue("{  \"tableRule\" : {    \"auditId\" : 0,    \"lastUpdated\" : \"lastUpdated\",    \"data\" : \"data\",    \"tenantKey\" : \"tenantKey\",    \"name\" : \"name\",    \"id\" : \"id\",    \"bundle\" : \"bundle\",    \"version\" : \"version\",    \"status\" : \"Pending\"  },  \"totalPage\" : 6,  \"currentPage\" : 1}", TableRuleResponse.class), HttpStatus.NOT_IMPLEMENTED);
                 } catch (IOException e) {
                     log.error("Couldn't serialize response for content type application/json", e);
                     return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

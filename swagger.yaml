@@ -70,7 +70,7 @@ paths:
         '200':
           description: Successful response of loading table rule.
           schema:
-            $ref: '#/definitions/tableRule'
+            $ref: '#/definitions/tableRuleResponse'
         '400':
           $ref: '#/responses/invalidRequest'
         '401':
@@ -209,7 +209,7 @@ definitions:
         $ref: '#/definitions/subscriptionInfo'
   tableRule:
     type: object
-    description: Table rule entity.
+    description:  Table rule entity.
     properties:
       id:
         type: string
@@ -237,6 +237,21 @@ definitions:
         type: integer
         format: int32
         description: Foreign key references to the audit table.
+  tableRuleResponse:
+    type: object
+    description: Table rule response model.
+    properties:
+      tableRule:
+        type: object
+        $ref: '#/definitions/tableRule'
+      totalPage:
+        type: integer
+        format: int32
+        description: Total pages of the table rule content.
+      currentPage:
+        type: integer
+        format: int32
+        description: Current page of the table rule content.
   businessRuleSetDefinition:
     type: object
     description: Business rule-set definition entity.
